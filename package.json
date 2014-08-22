@@ -1,0 +1,13 @@
+{
+  "name": "food-application",
+  "description": "Food application",  
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "4.x",
+    "mongoose": "3.8.15"
+  }
+}
