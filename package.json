@@ -1,13 +1,18 @@
 {
-  "name": "food-application",
-  "description": "Food application",  
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
-  "dependencies": {
-    "express": "4.x",
-    "mongoose": "3.8.15"
-  }
+    "name": "food-application",
+    "description": "Food application",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "express": "4.x",
+        "mongoose": "3.8.15",
+        "morgan": "~1.0.0",
+        "body-parser": "~1.0.0",
+        "method-override": "~1.0.0",
+        "errorhandler": "~1.0.0"
+
+    }
 }
