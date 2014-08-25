@@ -3,7 +3,6 @@
 var express = require('express')
     , mongoose = require('mongoose')
     , http = require('http')
-    , path = require('path')
     , database = require('./config/database') // load the database config
     , morgan = require('morgan') // log requests to the console (express4)
     , bodyParser = require('body-parser') 	// pull information from HTML POST (express4)
@@ -40,7 +39,6 @@ if ('development' == env) {
 } else {
     // insert db connection for production
 }
-
 // Routing
 
 require('./routes/products')(app);
