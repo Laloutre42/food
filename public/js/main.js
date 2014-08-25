@@ -72,6 +72,12 @@ require.config({
         "bloodhound": {
             deps: ["jquery"],
             exports: "Bloodhound"
+        },
+        "jquery-dataTables": {
+            deps: ["jquery"]
+        },
+        "dataTables-bootstrap": {
+            deps: ["jquery-dataTables", "bootstrap"]
         }
 
     },
@@ -107,6 +113,8 @@ require.config({
         stomp: 'lib/stomp',
         typeahead: 'lib/typeahead.bundle',
         bloodhound: 'lib/bloodhound',
+        'jquery-dataTables': 'lib/jquery.dataTables',
+        'dataTables-bootstrap': 'lib/dataTables.bootstrap',
 
         // Custom util and handlebar helpers
         util: 'util/util',

@@ -42,6 +42,7 @@ if ('development' == env) {
 // Routing
 
 require('./routes/products')(app);
+require('./routes/items')(app);
 
 // Start Server w/ DB Connection
 
