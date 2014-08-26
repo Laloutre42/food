@@ -1,11 +1,11 @@
-define(['module'], function (module) {
+define(['module'], function(module) {
 
     var masterConfig = (module.config && module.config()) || {};
 
     var hbs = {
         load: function (name, req, load, config) {
             config = config || {};
-
+            
             var extension = masterConfig.extension;
             if (config.extension) {
                 extension = config.extension;
@@ -14,7 +14,7 @@ define(['module'], function (module) {
             var textName = 'text!' + name + '.' + extension;
 
             return req(['handlebars', textName], function (Handlebars, template) {
-                if (!config.isBuild) {
+                if(!config.isBuild) {
                     load(Handlebars.compile(template));
                 }
                 else {

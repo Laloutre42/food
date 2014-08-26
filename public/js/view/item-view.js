@@ -1,5 +1,5 @@
-define(['backbone', 'resthub', 'hbs!template/item'],
-    function (Backbone, Resthub, itemTemplate) {
+define(['backbone', 'resthub', 'hbs!template/item', 'view/itemForm-view'],
+    function (Backbone, Resthub, itemTemplate, ItemFormView) {
 
         var ItemView = Resthub.View.extend({
 
@@ -23,14 +23,16 @@ define(['backbone', 'resthub', 'hbs!template/item'],
                 this.listenTo(this.model, 'destroy', this.remove);
             },
 
-            edit: function() {
-                var taskFormView = new TaskFormView({root: this.$el, model: this.model});
-                taskFormView.render();
+            render: function() {
+                ItemView.__super__.render.apply(this);
+                $('#tableItems').editableTableWidget();
+                return this;
             },
 
-            toggleDetails: function() {
-                this.$('p').slideToggle();
-            }
+            edit: function() {
+                var itemFormView = new ItemFormView({root: this.$el, model: this.model});
+                itemFormView.render();
+            },
 
         });
 
