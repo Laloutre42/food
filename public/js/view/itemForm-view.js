@@ -32,7 +32,7 @@ define(['backbone', 'resthub', 'hbs!template/itemForm', 'backbone-validation'],
             },
 
             removeBackGroundModel: function(){
-                $('myModal').modal('hide');
+                $('#newItemModal').modal('hide');
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
             }
