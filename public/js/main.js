@@ -69,7 +69,7 @@ require.config({
                 'leaflet'
             ]
         },
-        "bloodhound": {
+        "typeahead-bundle": {
             deps: ["jquery"],
             exports: "Bloodhound"
         },
@@ -114,8 +114,7 @@ require.config({
         console: 'lib/resthub/console',
 
         // Custom
-        typeahead: 'lib/custom/typeahead.bundle',
-        bloodhound: 'lib/custom/bloodhound',
+        'typeahead-bundle': 'lib/custom/typeahead.bundle',
         'datatables': 'lib/custom/jquery.dataTables',
         'datatables-bootstrap': 'lib/custom/dataTables.bootstrap',
         editabletable: 'lib/custom/jqueryEditTable/mindmup-editabletable',

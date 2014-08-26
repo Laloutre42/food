@@ -1,5 +1,5 @@
-define(['backbone', 'resthub', 'hbs!template/searchFood', 'typeahead', 'bloodhound'],
-    function (Backbone, Resthub, searchFoodTemplate, Typeahead, Bloodhound) {
+define(['backbone', 'resthub', 'hbs!template/searchFood', 'typeahead-bundle'],
+    function (Backbone, Resthub, searchFoodTemplate) {
 
         var SearchFoodView = Resthub.View.extend({
 

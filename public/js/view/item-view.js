@@ -30,9 +30,8 @@ define(['backbone', 'resthub', 'hbs!template/item', 'view/itemForm-view'],
             },
 
             edit: function() {
-                var itemFormView = new ItemFormView({root: this.$el, model: this.model});
-                itemFormView.render();
-            },
+                new ItemFormView({root: this.$el, model: this.model});
+            }
 
         });
 

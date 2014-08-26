@@ -12,11 +12,12 @@ define(['backbone'],
                 msg: 'Item category is required.'
             },
             energy_100g: {
-                required: true,
+                //required: true,
                 msg: 'Item energy_100g is required.'
             },
             weight: {
                 required: true,
+                range: [1, 80],
                 msg: 'Item weight is required.'
             }
         }
