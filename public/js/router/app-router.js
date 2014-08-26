@@ -1,5 +1,5 @@
-define(['backbone', 'bootstrap', 'view/searchFood-view', 'view/item-view'],
-    function (Backbone, Bootstrap, SearchFoodView, ItemView) {
+define(['backbone', 'bootstrap', 'view/searchFood-view', 'view/items-view', 'collection/items'],
+    function (Backbone, Bootstrap, SearchFoodView, ItemsView, Items) {
 
         var AppRouter = Backbone.Router.extend({
 
@@ -27,7 +27,7 @@ define(['backbone', 'bootstrap', 'view/searchFood-view', 'view/item-view'],
                 // This general object is used for event aggregator between views
                 this.vent = _.extend({}, Backbone.Events);
 
-                new ItemView({ root: $('#searchFoodContainer'), vent: this.vent});
+                new ItemsView({ collection: new Items()});
 
             }
 

@@ -1,16 +1,13 @@
-define(['backbone', 'resthub', 'hbs!template/item', 'jquery-dataTables', 'dataTables-bootstrap'],
-    function (Backbone, Resthub, itemTemplate, JqueryDataTables, DataTablesBootstrap) {
+define(['backbone', 'resthub', 'hbs!template/item'],
+    function (Backbone, Resthub, itemTemplate) {
 
         var ItemView = Resthub.View.extend({
 
-            /**
-             * Template
-             */
-            template: itemTemplate,
+            root: '#tableItems',
+            strategy: 'append',
+            tagName: 'tr',
 
-            /**
-             * Events
-             */
+            template: itemTemplate,
             events: {
 //                'typeahead #bloodhound .typeahead': 'addTrace'
             },
@@ -19,22 +16,20 @@ define(['backbone', 'resthub', 'hbs!template/item', 'jquery-dataTables', 'dataTa
              * Initialize
              * @param options
              */
-            initialize: function (attributes) {
+            initialize: function () {
 
-                // Events aggregator object
-                this.vent = attributes.vent;
-
-                this.render();
-
+                this.listenTo(this.model, 'sync', this.render);
+                this.listenTo(this.model, 'change', this.render);
+                this.listenTo(this.model, 'destroy', this.remove);
             },
 
+            edit: function() {
+                var taskFormView = new TaskFormView({root: this.$el, model: this.model});
+                taskFormView.render();
+            },
 
-            /**
-             * TODO
-             * @param event
-             */
-            addTrace: function (event) {
-                console.log("ok");
+            toggleDetails: function() {
+                this.$('p').slideToggle();
             }
 
         });

@@ -73,11 +73,14 @@ require.config({
             deps: ["jquery"],
             exports: "Bloodhound"
         },
-        "jquery-dataTables": {
+        "datatables": {
             deps: ["jquery"]
         },
-        "dataTables-bootstrap": {
-            deps: ["jquery-dataTables", "bootstrap"]
+        "datatables-bootstrap": {
+            deps: ["datatables", "bootstrap"]
+        },
+        "editabletable": {
+            deps: ["jquery"]
         }
 
     },
@@ -113,8 +116,9 @@ require.config({
         stomp: 'lib/stomp',
         typeahead: 'lib/typeahead.bundle',
         bloodhound: 'lib/bloodhound',
-        'jquery-dataTables': 'lib/jquery.dataTables',
-        'dataTables-bootstrap': 'lib/dataTables.bootstrap',
+        'datatables': 'lib/jquery.dataTables',
+        'datatables-bootstrap': 'lib/dataTables.bootstrap',
+        editabletable: 'lib/jqueryEditTable/mindmup-editabletable',
 
         // Custom util and handlebar helpers
         util: 'util/util',
