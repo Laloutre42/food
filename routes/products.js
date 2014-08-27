@@ -35,13 +35,27 @@ module.exports = function (app) {
             });
         });
 
-    // Retrieve products by product_name
-    app.route('/products/product_name/:product_name')
+    // Retrieve products by product_name. use LIKE
+    app.route('/products/product_name/like/:product_name')
 
         .get(function (req, res, next) {
-            console.log('Retrieving products by product_name');
+            console.log('Retrieving products by product_name LIKE');
             var regex = new RegExp(req.params.product_name, 'i');
-            Product.find({product_name: regex}, productFields, function (err, product) {
+            Product.find({product_name: regex, energy_100g: { $gte: 0 }}, productFields, function (err, product) {
+
+                if (err)
+                    return util.handleError(err, res);
+
+                res.json(product);
+            });
+        });
+
+    // Retrieve products by product_name. use strict EQUALS
+    app.route('/products/product_name/equals/:product_name')
+
+        .get(function (req, res, next) {
+            console.log('Retrieving products by product_name EQUALS');
+            Product.find({product_name: req.params.product_name}, productFields, function (err, product) {
 
                 if (err)
                     return util.handleError(err, res);

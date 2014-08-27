@@ -1,6 +1,7 @@
 // Load the item model
 var util = require('../util/util');
 var Item = require('../models/itemModel');
+var Product = require('../models/productModel');
 
 // expose the routes to our app with module.exports
 module.exports = function (app) {
@@ -21,7 +22,7 @@ module.exports = function (app) {
             });
         })
 
-        // Create a bear
+        // Create a item
         .post(function (req, res) {
 
             console.log('Save a new item');
@@ -34,12 +35,27 @@ module.exports = function (app) {
                 energy: req.body.energy_100g * req.body.weight / 100
             });
 
-            item.save(function (err) {
+            // Check if item name is a product name
+            Product.find({product_name: req.body.name}, function (err, product) {
 
-                if (err)
+                if (err) {
                     return util.handleError(err, res);
+                }
+                else {
+                    // Product must exist
+                    if (product != '') {
+                        item.save(function (err) {
 
-                res.json(item);
+                            if (err)
+                                return util.handleError(err, res);
+
+                            res.json(item);
+                        });
+                    }
+                    else{
+                        res.json('Product dose not exist');
+                    }
+                }
             });
         });
 
