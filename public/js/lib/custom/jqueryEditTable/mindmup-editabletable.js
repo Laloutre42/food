@@ -14,6 +14,10 @@ $.fn.editableTableWidget = function (options) {
             active,
             showEditor = function (select) {
                 active = element.find('td:focus');
+
+                if (active.hasClass('disableEditor')){
+                    return false;
+                }
                 if (active.length) {
                     editor.val(active.text())
                         .removeClass('error')
@@ -42,16 +46,25 @@ $.fn.editableTableWidget = function (options) {
                 }
             },
             movement = function (element, keycode) {
+                var futureElement
                 if (keycode === ARROW_RIGHT) {
-                    return element.next('td');
+                    futureElement = element.next('td');
                 } else if (keycode === ARROW_LEFT) {
-                    return element.prev('td');
+                    futureElement = element.prev('td');
                 } else if (keycode === ARROW_UP) {
-                    return element.parent().prev().children().eq(element.index());
+                    futureElement =  element.parent().prev().children().eq(element.index());
                 } else if (keycode === ARROW_DOWN) {
-                    return element.parent().next().children().eq(element.index());
+                    futureElement =  element.parent().next().children().eq(element.index());
                 }
-                return [];
+                if (!futureElement){
+                    return [];
+                }
+                if(!futureElement.hasClass('disableEditor')){
+                    return futureElement;
+                }
+                else{
+                    return movement(futureElement,keycode);
+                }
             };
         editor.blur(function () {
             setActiveText();
@@ -90,8 +103,8 @@ $.fn.editableTableWidget = function (options) {
                 }
             });
         element.on('click keypress dblclick', showEditor)
-            .css('cursor', 'pointer')
-            .keydown(function (e) {
+        element.find('td:not(.disableEditor)').css('cursor', 'pointer');
+        element.find('td:not(.disableEditor)').keydown(function (e) {
                 var prevent = true,
                     possibleMove = movement($(e.target), e.which);
                 if (possibleMove.length > 0) {
