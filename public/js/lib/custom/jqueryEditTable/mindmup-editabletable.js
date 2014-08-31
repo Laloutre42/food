@@ -83,6 +83,7 @@ $.fn.editableTableWidget = function (options) {
                 editor.hide();
                 active.focus();
             } else if (e.which === TAB) {
+                console.log('TAB');
                 active.focus();
             } else if (this.selectionEnd - this.selectionStart === this.value.length) {
                 var possibleMove = movement(active, e.which);

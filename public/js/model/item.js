@@ -4,8 +4,7 @@ define(['backbone'],
     var Item = Backbone.Model.extend({
         validation: {
             name: {
-                required: true,
-                msg: 'Item name is required.'
+                required: true
             },
             category: {
                 required: true,

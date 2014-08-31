@@ -5,7 +5,7 @@ var Product = require('../models/productModel');
 // expose the routes to our app with module.exports
 module.exports = function (app) {
 
-    var productFields = 'url product_name energy_100g';
+    var productFields = 'url product_name energy_100g image_small_url';
 
     // Retrieve all products
     app.route('/products')
@@ -41,13 +41,35 @@ module.exports = function (app) {
         .get(function (req, res, next) {
             console.log('Retrieving products by product_name');
             var regex = new RegExp(req.params.product_name, 'i');
-            Product.find({product_name: regex}, productFields, function (err, product) {
 
-                if (err)
-                    return util.handleError(err, res);
+            Product
+                .count({product_name: regex})
+                .where('energy_100g').gte(0)
+                .where('image_small_url').ne("")
+                .exec(function (err, count) {
 
-                res.json(product);
-            });
+                    if (err)
+                        return util.handleError(err, res);
+
+                    console.log(count + ' items found');
+
+                    Product
+                        .find({product_name: regex})
+                        .where('energy_100g').gte(0)
+                        .where('image_small_url').ne("")
+                        .sort({'date': -1})
+                        .limit(20)
+                        .select(productFields)
+                        .exec(function (err, products) {
+
+                            if (err)
+                                return util.handleError(err, res);
+
+                            res.json({count: count, products: products});
+                        });
+                });
+
+
         });
 
 };

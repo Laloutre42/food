@@ -1,5 +1,5 @@
-define(['backbone', 'bootstrap', 'view/searchFood-view', 'view/items-view', 'collection/items'],
-    function (Backbone, Bootstrap, SearchFoodView, ItemsView, Items) {
+define(['backbone', 'bootstrap', 'view/products-view', 'view/items-view', 'collection/items', 'collection/products'],
+    function (Backbone, Bootstrap, ProductsView, ItemsView, Items, Products) {
 
         var AppRouter = Backbone.Router.extend({
 
@@ -10,7 +10,7 @@ define(['backbone', 'bootstrap', 'view/searchFood-view', 'view/items-view', 'col
             },
 
             routes: {
-                '': 'home2'
+                '': 'home'
             },
 
             home: function () {
@@ -18,7 +18,7 @@ define(['backbone', 'bootstrap', 'view/searchFood-view', 'view/items-view', 'col
                 // This general object is used for event aggregator between views
                 this.vent = _.extend({}, Backbone.Events);
 
-                new SearchFoodView({ root: $('#searchFoodContainer'), vent: this.vent});
+                new ProductsView({ collection: new Products()});
 
             },
 
