@@ -7,6 +7,7 @@ define(['backbone'],
                 name: {
                     required: true
                 },
+
                 category: {
                     range: [1, 4]
                 },

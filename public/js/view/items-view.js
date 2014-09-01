@@ -27,15 +27,15 @@ define(['backbone', 'resthub', 'hbs!template/items', 'view/item-view', 'model/it
             },
 
             add: function(item) {
-                var itemView = new ItemView({model: item});
+                itemView = new ItemView({model: item});
                 itemView.render();
             },
 
             create: function() {
-                var item = new Item();
+                item = new Item();
                 // Silent cause we do not want to render but to be in edit mode
                 this.collection.add(item, {silent: true});
-                var itemView = new ItemView({model: item});
+                itemView = new ItemView({model: item});
                 itemView.edit();
             }
 
