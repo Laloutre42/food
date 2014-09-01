@@ -1,4 +1,4 @@
-define(['backbone', 'resthub', 'hbs!template/items', 'view/item-view', 'model/item', 'datatables', 'datatables-bootstrap', 'editabletable'],
+define(['backbone', 'resthub', 'hbs!template/items', 'view/item-view', 'model/item'],
     function (Backbone, Resthub, itemsTemplate, ItemView, Item) {
 
         var ItemsView = Resthub.View.extend({
@@ -36,7 +36,8 @@ define(['backbone', 'resthub', 'hbs!template/items', 'view/item-view', 'model/it
                 // Silent cause we do not want to render but to be in edit mode
                 this.collection.add(item, {silent: true});
                 itemView = new ItemView({model: item});
-                itemView.edit();
+                itemView.editItem();
+                //itemView.editItem(true);
             }
 
         });

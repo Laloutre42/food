@@ -22,7 +22,7 @@ module.exports = function (app) {
         });
 
     // Retrieve products by id
-    app.route('/products/id/:id')
+    app.route('/products/:id')
 
         .get(function (req, res, next) {
             console.log('Retrieving products by id');

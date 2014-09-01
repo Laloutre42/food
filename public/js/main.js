@@ -81,6 +81,9 @@ require.config({
         },
         "editabletable": {
             deps: ["jquery"]
+        },
+        "boostrap-editable": {
+            deps: ["jquery", "bootstrap"]
         }
 
     },
@@ -101,7 +104,7 @@ require.config({
         'handlebars-orig': 'lib/handlebars',
         'handlebars': 'lib/resthub/handlebars-helpers',
         'backbone-queryparams': 'lib/backbone-queryparams',
-        'backbone-datagrid': 'lib/backbone-datagrid',
+        'backbone-datagrid': 'lib/back  bone-datagrid',
         'backbone-paginator': 'lib/backbone-paginator',
         'backbone-associations': 'lib/backbone-associations',
         'backbone-localstorage': 'lib/backbone-localstorage',
@@ -118,6 +121,7 @@ require.config({
         'datatables': 'lib/custom/jquery.dataTables',
         'datatables-bootstrap': 'lib/custom/dataTables.bootstrap',
         editabletable: 'lib/custom/jqueryEditTable/mindmup-editabletable',
+        'boostrap-editable': 'lib/custom/bootstrap3-editable/bootstrap-editable',
 
         // Custom util and handlebar helpers
         util: 'util/util',

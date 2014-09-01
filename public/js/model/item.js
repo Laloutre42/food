@@ -2,6 +2,9 @@ define(['backbone'],
     function (Backbone) {
 
         var Item = Backbone.Model.extend({
+
+            idAttribute: '_id',
+
             validation: {
 
                 name: {
@@ -9,7 +12,7 @@ define(['backbone'],
                 },
 
                 category: {
-                    range: [1, 4]
+                    required: true
                 },
                 energy_100g: {
                     pattern: 'number'

@@ -1,5 +1,5 @@
-define(['backbone', 'bootstrap', 'view/products-view', 'view/items-view', 'collection/items', 'collection/products'],
-    function (Backbone, Bootstrap, ProductsView, ItemsView, Items, Products) {
+define(['backbone', 'bootstrap', 'view/items-view', 'collection/items', 'collection/products'],
+    function (Backbone, Bootstrap, ItemsView, Items, Products) {
 
         var AppRouter = Backbone.Router.extend({
 
@@ -14,15 +14,6 @@ define(['backbone', 'bootstrap', 'view/products-view', 'view/items-view', 'colle
             },
 
             home: function () {
-
-                // This general object is used for event aggregator between views
-                this.vent = _.extend({}, Backbone.Events);
-
-                new ProductsView({ collection: new Products()});
-
-            },
-
-            home2: function () {
 
                 // This general object is used for event aggregator between views
                 this.vent = _.extend({}, Backbone.Events);

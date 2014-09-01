@@ -1,5 +1,5 @@
-define(['backbone', 'resthub', 'hbs!template/item', 'view/itemForm-view'],
-    function (Backbone, Resthub, itemTemplate, ItemFormView) {
+define(['backbone', 'resthub', 'hbs!template/item', 'view/itemForm-view', 'collection/products'],
+    function (Backbone, Resthub, itemTemplate, ItemFormView, Products) {
 
         var ItemView = Resthub.View.extend({
 
@@ -9,7 +9,8 @@ define(['backbone', 'resthub', 'hbs!template/item', 'view/itemForm-view'],
 
             template: itemTemplate,
             events: {
-//                'typeahead #bloodhound .typeahead': 'addTrace'
+                'click .editOrDelete .edit': 'editItem',
+                'click .editOrDelete .remove': 'removeItem'
             },
 
             /**
@@ -25,12 +26,11 @@ define(['backbone', 'resthub', 'hbs!template/item', 'view/itemForm-view'],
 
             render: function() {
                 ItemView.__super__.render.apply(this);
-                $('#tableItems').editableTableWidget();
                 return this;
             },
 
-            edit: function() {
-                new ItemFormView({root: this.$el, model: this.model});
+            editItem: function(eventEditMode) {
+                itemFormView = new ItemFormView({model: this.model, collection: new Products(), eventEditMode: eventEditMode});
             }
 
         });

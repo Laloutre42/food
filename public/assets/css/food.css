@@ -1,0 +1,8 @@
+#tableProducts tbody{
+    cursor: pointer;
+}
+
+.editCategory{
+    float: right;
+    cursor: pointer;
+}
