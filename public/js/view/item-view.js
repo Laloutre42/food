@@ -31,6 +31,11 @@ define(['backbone', 'resthub', 'hbs!template/item', 'view/itemForm-view', 'colle
 
             editItem: function(eventEditMode) {
                 itemFormView = new ItemFormView({model: this.model, collection: new Products(), eventEditMode: eventEditMode});
+            },
+
+            removeItem: function() {
+                this.model.destroy();
+                this.model.trigger('destroy');
             }
 
         });
