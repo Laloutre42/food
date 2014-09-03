@@ -15,13 +15,15 @@ define(['backbone', 'resthub', 'hbs!template/item', 'view/itemForm-view', 'colle
 
             /**
              * Initialize
-             * @param options
+             * @param attributes
              */
-            initialize: function () {
+            initialize: function (attributes) {
 
-                this.listenTo(this.model, 'sync', this.render);
-                this.listenTo(this.model, 'change', this.render);
-                this.listenTo(this.model, 'destroy', this.remove);
+                // Events aggregator object
+                this.vent = attributes.vent;
+
+                this.listenTo(this.model, 'sync', this.syncModel);
+                this.listenTo(this.model, 'destroy', this.destroyModel);
             },
 
             render: function() {
@@ -36,6 +38,19 @@ define(['backbone', 'resthub', 'hbs!template/item', 'view/itemForm-view', 'colle
             removeItem: function() {
                 this.model.destroy();
                 this.model.trigger('destroy');
+            },
+
+            syncModel: function(){
+                this.vent.trigger("addViewEvent", this);
+                this.vent.trigger("computeTotal");
+            },
+            destroyModel: function(){
+                this.close();
+                this.vent.trigger("computeTotal");
+            },
+            close: function() {
+                this.remove();
+                this.unbind();
             }
 
         });

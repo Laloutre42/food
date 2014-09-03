@@ -35,26 +35,32 @@ module.exports = function (app) {
                 energy: req.body.energy_100g * req.body.weight / 100
             });
 
-            // Check if item name is a product name
+            // Check if item name belongs to OpenFoodFact DB
             Product.find({product_name: req.body.name}, function (err, product) {
 
                 if (err) {
                     return util.handleError(err, res);
                 }
                 else {
-                    // Product must exist
-                    if (product != '') {
-                        item.save(function (err) {
+                    // Product belongs to OpenFoodFact DB or not
+                    if (product != '' && product[0] != '' && product[0].energy_100g != '' &&
+                        ((Math.ceil(product[0].energy_100g / 4.184) == item.energy_100g))) {
 
-                            if (err)
-                                return util.handleError(err, res);
+                        item.openFoodFactProduct = true;
+                        item.url = product[0].url;
+                    }
+                    else {
+                        item.openFoodFactProduct = false;
+                    }
 
-                            res.json(item);
-                        });
-                    }
-                    else{
-                        res.json(500, 'Product dose not exist');
-                    }
+                    // Save item
+                    item.save(function (err) {
+
+                        if (err)
+                            return util.handleError(err, res);
+
+                        res.json(item);
+                    });
                 }
             });
         });
@@ -89,19 +95,43 @@ module.exports = function (app) {
                 energy: req.body.energy_100g * req.body.weight / 100
             });
 
-            // Convert the Model instance to a simple object using Model's 'toObject' function
-            // to prevent weirdness like infinite looping...
-            var itemUpdated = item.toObject();
+            // Check if item name belongs to OpenFoodFact DB
+            Product.find({product_name: req.body.name}, function (err, product) {
 
-            // Delete the _id property, otherwise Mongo will return a "Mod on _id not allowed" error
-            delete itemUpdated._id;
-
-            Item.findByIdAndUpdate(req.params.id, { $set: itemUpdated }, function (err, item) {
-
-                if (err)
+                if (err) {
                     return util.handleError(err, res);
+                }
+                else {
 
-                res.json(item);
+                    // Product belongs to OpenFoodFact DB or not
+                    if (product != '' && product[0] != '' && product[0].energy_100g != '' &&
+                        ((Math.ceil(product[0].energy_100g / 4.184) == item.energy_100g))) {
+
+                        item.openFoodFactProduct = true;
+                        item.url = product[0].url;
+                    }
+                    else {
+                        item.openFoodFactProduct = false;
+                    }
+
+                    // Update item
+
+                    // Convert the Model instance to a simple object using Model's 'toObject' function
+                    // to prevent weirdness like infinite looping...
+                    var itemUpdated = item.toObject();
+
+                    // Delete the _id property, otherwise Mongo will return a "Mod on _id not allowed" error
+                    delete itemUpdated._id;
+
+                    Item.findByIdAndUpdate(req.params.id, { $set: itemUpdated }, function (err, item) {
+
+
+                        if (err)
+                            return util.handleError(err, res);
+
+                        res.json(item);
+                    });
+                }
             });
 
         })

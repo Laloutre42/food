@@ -4,14 +4,58 @@
 
 <div id="modalItemForm"></div>
 
-<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="tableItems">
+<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="tableTotalItems">
     <thead>
     <tr>
-        <th>Name</th>
         <th>Category</th>
-        <th>Kcal/100g</th>
-        <th>Weight (g)</th>
-        <th>Energy (kcal)</th>
+        <th>Total weight (g)</th>
+        <th>Total energy (kcal)</th>
+        <th>Average kcal/100g</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>BREAKFAST</td>
+        <td id="breakfastTotalWeight"></td>
+        <td id="breakfastTotalEnergy"></td>
+        <td id="breakfastTotalEnergy100g"></td>
+    </tr>
+    <tr>
+        <td>LUNCH</td>
+        <td id="lunchTotalWeight"></td>
+        <td id="lunchTotalEnergy"></td>
+        <td id="lunchTotalEnergy100g"></td>
+    </tr>
+    <tr>
+        <td>DINER</td>
+        <td id="dinerTotalWeight"></td>
+        <td id="dinerTotalEnergy"></td>
+        <td id="dinerTotalEnergy100g"></td>
+    </tr>
+    <tr>
+        <td>SNACK</td>
+        <td id="snackTotalWeight"></td>
+        <td id="snackTotalEnergy"></td>
+        <td id="snackTotalEnergy100g"></td>
+    </tr>
+    <tr>
+        <td>ALL</td>
+        <td id="allTotalWeight"></td>
+        <td id="allTotalEnergy"></td>
+        <td id="allTotalEnergy100g"></td>
+    </tr>
+    </tbody>
+</table>
+
+<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="tableItems">
+    <thead>
+    <tr>
+        <th column="name" class="sortable">Name</th>
+        <th column="category" class="sortable">Category</th>
+        <th column="energy_100g" class="sortable">Kcal/100g</th>
+        <th column="weight" class="sortable">Weight (g)</th>
+        <th column="energy" class="sortable">Energy (kcal)</th>
+        <th column="openFoodFact">OpenFoodFact</th>
         <th></th>
     </tr>
     </thead>

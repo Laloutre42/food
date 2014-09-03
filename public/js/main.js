@@ -39,19 +39,13 @@ require.config({
             ]
         },
         'backbone-relational': {
-            deps: [
-                'backbone'
-            ]
+            deps: ['backbone']
         },
         'backbone-validation-orig': {
-            deps: [
-                'backbone'
-            ]
+            deps: ['backbone']
         },
         'backbone-validation': {
-            deps: [
-                'backbone-validation-orig'
-            ]
+            deps: ['backbone-validation-orig']
         },
         'keymaster': {
             exports: 'key'
@@ -60,14 +54,10 @@ require.config({
             exports: 'async'
         },
         'sockjs': {
-            deps: [
-                'jquery'
-            ]
+            deps: ['jquery']
         },
         'boundaryCanvas': {
-            deps: [
-                'leaflet'
-            ]
+            deps: ['leaflet']
         },
         "typeahead-bundle": {
             deps: ["jquery"],
@@ -84,6 +74,12 @@ require.config({
         },
         "boostrap-editable": {
             deps: ["jquery", "bootstrap"]
+        },
+        "boostrap-modal": {
+            deps: ["bootstrap"]
+        },
+        "bootstrap-table": {
+            deps: ["bootstrap"]
         }
 
     },
@@ -122,6 +118,9 @@ require.config({
         'datatables-bootstrap': 'lib/custom/dataTables.bootstrap',
         editabletable: 'lib/custom/jqueryEditTable/mindmup-editabletable',
         'boostrap-editable': 'lib/custom/bootstrap3-editable/bootstrap-editable',
+        'bootstrap-modal': 'lib/bootstrap-modal/bootstrap-modal',
+        'bootstrap-modalmanager': 'lib/bootstrap-modal/bootstrap-modalmanager',
+        'bootstrap-table': 'lib/custom/bootstrap-table',
 
         // Custom util and handlebar helpers
         util: 'util/util',

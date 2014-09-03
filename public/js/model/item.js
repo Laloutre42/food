@@ -12,7 +12,7 @@ define(['backbone'],
                 },
 
                 category: {
-                    required: true
+                    oneOf: ['BREAKFAST', 'LUNCH', 'DINER', 'SNACK']
                 },
                 energy_100g: {
                     pattern: 'number'

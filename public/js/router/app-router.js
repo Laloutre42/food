@@ -18,7 +18,10 @@ define(['backbone', 'bootstrap', 'view/items-view', 'collection/items', 'collect
                 // This general object is used for event aggregator between views
                 this.vent = _.extend({}, Backbone.Events);
 
-                new ItemsView({ collection: new Items()});
+                // This general object is used for event aggregator between views
+                this.vent = _.extend({}, Backbone.Events);
+
+                new ItemsView({ collection: new Items(), vent: this.vent});
 
             }
 

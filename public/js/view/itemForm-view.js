@@ -10,8 +10,14 @@ define(['backbone', 'resthub', 'hbs!template/itemForm', 'model/item', 'view/prod
                 'click .save': 'save',
                 'click #searchProduct': 'searchProduct',
                 'keypress #inputSearchProduct': 'searchProductEnterKey',
-                'click #tableProducts tr': 'productChoosen'
+                'click #tableProducts tr': 'productChoosen',
+                'focus #inputName': 'hideErrors',
+                'focus #inputEnergy_100g': 'hideErrors',
+                'focus #inputWeight': 'hideErrors',
+                'focus #searchProduct': 'hideErrors'
             },
+
+            childViews: [],
 
             /**
              * Initialize
@@ -25,7 +31,6 @@ define(['backbone', 'resthub', 'hbs!template/itemForm', 'model/item', 'view/prod
                 this.listenTo(this.model, 'valid', this.valid);
                 Backbone.Validation.bind(this);
 
-                this.childViews = [];
                 this.render();
                 this.listenTo(this.collection, 'add', this.add, this);
             },
