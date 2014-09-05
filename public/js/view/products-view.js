@@ -50,6 +50,11 @@ define(['backbone', 'resthub', 'hbs!template/products', 'view/product-view', 'mo
 
             collectionFetchedSuccess: function(collection, response, options){
                 $("#alertResultProducts").text(collection.count + " items found. Display "+collection.length);
+                $("#alertResultProducts").show();
+                $("#alertResultProducts").fadeTo(2000, 500).slideUp(500, function(){
+                    $("#alertResultProducts").alert('close');
+                });
+
             },
 
             removeChildrenViews: function(){
