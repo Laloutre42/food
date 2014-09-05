@@ -1,27 +1,28 @@
 define(['backbone'],
-    function(Backbone) {
+    function (Backbone) {
 
-    var Item = Backbone.Model.extend({
-        validation: {
-            name: {
-                required: true
-            },
-            category: {
-                required: true,
-                msg: 'Item category is required.'
-            },
-            energy_100g: {
-                //required: true,
-                msg: 'Item energy_100g is required.'
-            },
-            weight: {
-                required: true,
-                range: [1, 80],
-                msg: 'Item weight is required.'
+        var Item = Backbone.Model.extend({
+
+            idAttribute: '_id',
+
+            validation: {
+
+                name: {
+                    required: true
+                },
+
+                category: {
+                    oneOf: ['Breakfast', 'Lunch', 'Diner', 'Snack']
+                },
+                energy_100g: {
+                    pattern: 'number'
+                },
+                weight: {
+                    pattern: 'number'
+                }
             }
-        }
+        });
+
+        return Item;
+
     });
-
-    return Item;
-
-});

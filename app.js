@@ -5,16 +5,29 @@ var express = require('express')
     , http = require('http')
     , database = require('./config/database') // load the database config
     , morgan = require('morgan') // log requests to the console (express4)
+    , cookieParser = require('cookie-parser')
     , bodyParser = require('body-parser') 	// pull information from HTML POST (express4)
     , port = process.env.PORT || 3000 // set the port
     , methodOverride = require('method-override') // simulate DELETE and PUT (express4)
     , errorHandler = require('errorhandler')
+    , passport = require('passport')
+    , flash = require('connect-flash')
+    , session = require('express-session')
     , app = express();
 
 app.set('port', port);
 app.use(morgan('dev')); // log every request to the console 'default', 'short', 'tiny', 'dev'
+app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser());
 app.use(methodOverride());
+
+// required for passport
+app.use(session({ secret: 'ilovefoodfoodfoodfood' })); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+require('./config/passport')(passport);
 
 var env = process.env.NODE_ENV || 'development';
 
@@ -35,14 +48,16 @@ if ('development' == env) {
 // Database Connection
 
 if ('development' == env) {
-   mongoose.connect(database.url);
+    mongoose.connect(database.url);
 } else {
     // insert db connection for production
 }
 // Routing
 
+require('./routes/authentification')(app);
 require('./routes/products')(app);
 require('./routes/items')(app);
+require('./routes/lists')(app);
 
 // Start Server w/ DB Connection
 

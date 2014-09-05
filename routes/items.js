@@ -1,6 +1,7 @@
 // Load the item model
 var util = require('../util/util');
 var Item = require('../models/itemModel');
+var Product = require('../models/productModel');
 
 // expose the routes to our app with module.exports
 module.exports = function (app) {
@@ -21,7 +22,7 @@ module.exports = function (app) {
             });
         })
 
-        // Create a bear
+        // Create a item
         .post(function (req, res) {
 
             console.log('Save a new item');
@@ -31,20 +32,42 @@ module.exports = function (app) {
                 category: req.body.category,
                 energy_100g: req.body.energy_100g,
                 weight: req.body.weight,
-                energy: req.body.energy_100g * req.body.weight / 100
+                energy: req.body.energy_100g * req.body.weight / 100,
+                listId: req.body.listId
             });
 
-            item.save(function (err) {
+            // Check if item name belongs to OpenFoodFact DB
+            Product.find({product_name: req.body.name}, function (err, product) {
 
-                if (err)
+                if (err) {
                     return util.handleError(err, res);
+                }
+                else {
+                    // Product belongs to OpenFoodFact DB or not
+                    if (product != '' && product[0] != '' && product[0].energy_100g != '' &&
+                        ((Math.ceil(product[0].energy_100g / 4.184) == item.energy_100g))) {
 
-                res.json(item);
+                        item.openFoodFactProduct = true;
+                        item.url = product[0].url;
+                    }
+                    else {
+                        item.openFoodFactProduct = false;
+                    }
+
+                    // Save item
+                    item.save(function (err) {
+
+                        if (err)
+                            return util.handleError(err, res);
+
+                        res.json(item);
+                    });
+                }
             });
         });
 
 
-    app.route('/items/id/:id')
+    app.route('/items/:id')
 
         // Retrieve items by id
         .get(function (req, res, next) {
@@ -65,12 +88,52 @@ module.exports = function (app) {
 
             console.log('Updating item by id');
 
-            Item.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err, item) {
+            var item = new Item({
+                name: req.body.name,
+                category: req.body.category,
+                energy_100g: req.body.energy_100g,
+                weight: req.body.weight,
+                energy: req.body.energy_100g * req.body.weight / 100,
+                list: req.body.listId
+            });
 
-                if (err)
+            // Check if item name belongs to OpenFoodFact DB
+            Product.find({product_name: req.body.name}, function (err, product) {
+
+                if (err) {
                     return util.handleError(err, res);
+                }
+                else {
 
-                res.json(item);
+                    // Product belongs to OpenFoodFact DB or not
+                    if (product != '' && product[0] != '' && product[0].energy_100g != '' &&
+                        ((Math.ceil(product[0].energy_100g / 4.184) == item.energy_100g))) {
+
+                        item.openFoodFactProduct = true;
+                        item.url = product[0].url;
+                    }
+                    else {
+                        item.openFoodFactProduct = false;
+                    }
+
+                    // Update item
+
+                    // Convert the Model instance to a simple object using Model's 'toObject' function
+                    // to prevent weirdness like infinite looping...
+                    var itemUpdated = item.toObject();
+
+                    // Delete the _id property, otherwise Mongo will return a "Mod on _id not allowed" error
+                    delete itemUpdated._id;
+
+                    Item.findByIdAndUpdate(req.params.id, { $set: itemUpdated }, function (err, item) {
+
+
+                        if (err)
+                            return util.handleError(err, res);
+
+                        res.json(item);
+                    });
+                }
             });
 
         })
@@ -87,6 +150,24 @@ module.exports = function (app) {
 
                 res.json({ message: 'Successfully deleted' });
             });
+        });
+
+    // Retrieve items by listId
+    app.route('/items/listId/:listId')
+
+        .get(function (req, res, next) {
+            console.log('Retrieving items by listId');
+
+            Item
+                .find({listId: req.params.listId})
+                .exec(function (err, items) {
+
+                    if (err)
+                        return util.handleError(err, res);
+
+                    res.json(items);
+                });
+
         });
 
 

@@ -1,0 +1,104 @@
+<!-- Modal -->
+<div class="modal fade" id="newItemModal" tabindex="-1" data-replace="true" role="dialog" aria-labelledby="newItemModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close cancel" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="newItemModalLabel">Item</h4>
+            </div>
+            <div class="modal-body">
+
+                <form id ="newItemForm" class="form-horizontal" role="form">
+
+                    <!--Product-->
+                    <div class="form-group">
+                        <label for="inputProduct" class="col-sm-2 control-label">Product</label>
+
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="inputSearchProduct" placeholder="Product name">
+                        </div>
+
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-default" id="searchProduct">
+                                <span class="glyphicon glyphicon-search"></span> Search
+                            </button>
+                        </div>
+                    </div>
+
+                    <!--Product result-->
+                    <div class="form-group">
+
+                        <div class="col-sm-offset-2 col-sm-10">
+
+                            <table cellpadding="0" cellspacing="0" border="0"
+                                   class="table table-bordered table-condensed table-hover hidden"
+                                   id="tableProducts">
+                                <thead>
+                                <tr>
+                                    <th>Product name</th>
+                                    <th>Kcal/100g</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!--Name-->
+                    <div class="form-group name">
+                        <label for="inputItemName" class="col-sm-2 control-label">Name</label>
+
+                        <div class="col-sm-10">
+                            <input name="name" type="text" class="form-control typeahead" id="inputItemName" placeholder="Name"
+                                   value="{{model.name}}">
+                        </div>
+                    </div>
+
+                    <!--Energy/100g-->
+                    <div class="form-group energy_100g">
+                        <label for="inputItemEnergy_100g" class="col-sm-2 control-label">Kcal/100g</label>
+
+                        <div class="col-sm-10">
+                            <input name="energy_100g" type="number" class="form-control" id="inputItemEnergy_100g" placeholder="Kcal/100g"
+                                   value="{{model.energy_100g}}">
+                        </div>
+                    </div>
+
+                    <!--Weight-->
+                    <div class="form-group weight">
+                        <label for="inputItemWeight" class="col-sm-2 control-label">Weight</label>
+
+                        <div class="col-sm-10">
+                            <input name="weight" type="number" class="form-control" id="inputItemWeight" placeholder="Weight"
+                                   value="{{model.weight}}">
+                        </div>
+                    </div>
+
+                    <!--Category-->
+                    <div class="form-group category">
+                        <label for="inputItemCategory" class="col-sm-2 control-label">Category</label>
+
+                        <div class="col-sm-10">
+                            <select name="category" id="inputItemCategory" class="form-control">
+                                <option value="Breakfast">Breakfast</option>
+                                <option value="Lunch">Lunch</option>
+                                <option value="Diner">Diner</option>
+                                <option value="Snack">Snack</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default cancel" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary save">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -13,6 +13,13 @@ define(['backbone'],
 
             energy_100g_kcal: function(){
                 this.set('energy_100g_kcal', Math.ceil(this.get('energy_100g')/4.184));
+            },
+
+            validation: {
+
+                product_name: {
+                    required: true
+                }
             }
 
         });

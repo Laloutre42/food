@@ -39,19 +39,13 @@ require.config({
             ]
         },
         'backbone-relational': {
-            deps: [
-                'backbone'
-            ]
+            deps: ['backbone']
         },
         'backbone-validation-orig': {
-            deps: [
-                'backbone'
-            ]
+            deps: ['backbone']
         },
         'backbone-validation': {
-            deps: [
-                'backbone-validation-orig'
-            ]
+            deps: ['backbone-validation-orig']
         },
         'keymaster': {
             exports: 'key'
@@ -59,28 +53,9 @@ require.config({
         'async': {
             exports: 'async'
         },
-        'sockjs': {
-            deps: [
-                'jquery'
-            ]
-        },
-        'boundaryCanvas': {
-            deps: [
-                'leaflet'
-            ]
-        },
         "typeahead-bundle": {
             deps: ["jquery"],
             exports: "Bloodhound"
-        },
-        "datatables": {
-            deps: ["jquery"]
-        },
-        "datatables-bootstrap": {
-            deps: ["datatables", "bootstrap"]
-        },
-        "editabletable": {
-            deps: ["jquery"]
         }
 
     },
@@ -101,7 +76,7 @@ require.config({
         'handlebars-orig': 'lib/handlebars',
         'handlebars': 'lib/resthub/handlebars-helpers',
         'backbone-queryparams': 'lib/backbone-queryparams',
-        'backbone-datagrid': 'lib/backbone-datagrid',
+        'backbone-datagrid': 'lib/back  bone-datagrid',
         'backbone-paginator': 'lib/backbone-paginator',
         'backbone-associations': 'lib/backbone-associations',
         'backbone-localstorage': 'lib/backbone-localstorage',
@@ -115,9 +90,6 @@ require.config({
 
         // Custom
         'typeahead-bundle': 'lib/custom/typeahead.bundle',
-        'datatables': 'lib/custom/jquery.dataTables',
-        'datatables-bootstrap': 'lib/custom/dataTables.bootstrap',
-        editabletable: 'lib/custom/jqueryEditTable/mindmup-editabletable',
 
         // Custom util and handlebar helpers
         util: 'util/util',

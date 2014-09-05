@@ -1,0 +1,39 @@
+#tableProducts tbody{
+    cursor: pointer;
+}
+
+.editCategory{
+    float: right;
+    cursor: pointer;
+}
+
+/* Header sortable */
+#tableItems th{
+    cursor: pointer;
+}
+
+/*No underline on link*/
+a{
+    cursor: pointer;
+}
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+/*Modal scollable*/
+.modal .modal-body {
+    max-height: 400px;
+    overflow-y: auto;
+}

@@ -1,0 +1,12 @@
+<td>{{model.name}}</td>
+<td>{{model.author}}</td>
+<td><a href="#getItems/{{model._id}}">Items list</a></td>
+<td class="editOrDeleteList">
+    <button type="button" class="edit btn btn-default btn-sm" data-toggle="modal" data-target="#newListModal">
+        <span class="glyphicon glyphicon-pencil"></span>
+    </button>
+    <button type="button" class="remove btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-remove"></span>
+    </button>
+</td>
+</tr>
