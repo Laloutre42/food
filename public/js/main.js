@@ -53,33 +53,9 @@ require.config({
         'async': {
             exports: 'async'
         },
-        'sockjs': {
-            deps: ['jquery']
-        },
-        'boundaryCanvas': {
-            deps: ['leaflet']
-        },
         "typeahead-bundle": {
             deps: ["jquery"],
             exports: "Bloodhound"
-        },
-        "datatables": {
-            deps: ["jquery"]
-        },
-        "datatables-bootstrap": {
-            deps: ["datatables", "bootstrap"]
-        },
-        "editabletable": {
-            deps: ["jquery"]
-        },
-        "boostrap-editable": {
-            deps: ["jquery", "bootstrap"]
-        },
-        "boostrap-modal": {
-            deps: ["bootstrap"]
-        },
-        "bootstrap-table": {
-            deps: ["bootstrap"]
         }
 
     },
@@ -114,13 +90,6 @@ require.config({
 
         // Custom
         'typeahead-bundle': 'lib/custom/typeahead.bundle',
-        'datatables': 'lib/custom/jquery.dataTables',
-        'datatables-bootstrap': 'lib/custom/dataTables.bootstrap',
-        editabletable: 'lib/custom/jqueryEditTable/mindmup-editabletable',
-        'boostrap-editable': 'lib/custom/bootstrap3-editable/bootstrap-editable',
-        'bootstrap-modal': 'lib/bootstrap-modal/bootstrap-modal',
-        'bootstrap-modalmanager': 'lib/bootstrap-modal/bootstrap-modalmanager',
-        'bootstrap-table': 'lib/custom/bootstrap-table',
 
         // Custom util and handlebar helpers
         util: 'util/util',

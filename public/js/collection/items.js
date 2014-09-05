@@ -2,8 +2,10 @@ define(['backbone', 'model/item'],
     function(Backbone, Item) {
 
     var Items = Backbone.Collection.extend({
+
         model: Item,
-        url : "/items",
+
+        url: '/items',
 
         sortAttribute: "category",
         sortDirection: 1,

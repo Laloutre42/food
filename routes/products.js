@@ -58,7 +58,7 @@ module.exports = function (app) {
                         .where('energy_100g').gte(0)
                         .where('image_small_url').ne("")
                         .sort({'date': -1})
-                        .limit(20)
+                        .limit(8)
                         .select(productFields)
                         .exec(function (err, products) {
 

@@ -32,7 +32,8 @@ module.exports = function (app) {
                 category: req.body.category,
                 energy_100g: req.body.energy_100g,
                 weight: req.body.weight,
-                energy: req.body.energy_100g * req.body.weight / 100
+                energy: req.body.energy_100g * req.body.weight / 100,
+                listId: req.body.listId
             });
 
             // Check if item name belongs to OpenFoodFact DB
@@ -92,7 +93,8 @@ module.exports = function (app) {
                 category: req.body.category,
                 energy_100g: req.body.energy_100g,
                 weight: req.body.weight,
-                energy: req.body.energy_100g * req.body.weight / 100
+                energy: req.body.energy_100g * req.body.weight / 100,
+                list: req.body.listId
             });
 
             // Check if item name belongs to OpenFoodFact DB
@@ -148,6 +150,24 @@ module.exports = function (app) {
 
                 res.json({ message: 'Successfully deleted' });
             });
+        });
+
+    // Retrieve items by listId
+    app.route('/items/listId/:listId')
+
+        .get(function (req, res, next) {
+            console.log('Retrieving items by listId');
+
+            Item
+                .find({listId: req.params.listId})
+                .exec(function (err, items) {
+
+                    if (err)
+                        return util.handleError(err, res);
+
+                    res.json(items);
+                });
+
         });
 
 
