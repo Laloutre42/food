@@ -1,4 +1,4 @@
-define(['backbone', 'resthub', 'hbs!template/topNavigation'],
+define(['backbone', 'resthub', 'hbs!template/nav/topNavigation'],
     function (Backbone, Resthub, topNavigationTemplate) {
 
         var TopNavigationView = Resthub.View.extend({

@@ -17,6 +17,11 @@ define(['backbone', 'resthub', 'hbs!template/home/home'],
                 // Events aggregator object
                 this.vent = attributes.vent;
                 this.render();
+
+                if (attributes.message){
+                    $(".alert .alertContent").text(attributes.message);
+                    $(".alert").show();
+                }
             },
 
             render: function() {

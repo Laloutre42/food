@@ -52,13 +52,12 @@ module.exports = function (passport) {
                     if (err)
                         return done(err);
 
-                    // check to see if theres already a user with that email
+                    // check to see if there is already a user with that email
                     if (user) {
-                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                        return done(null, false, { success: false, message: 'That email is already taken.'});
                     } else {
 
-                        // if there is no user with that email
-                        // create the user
+                        // If there is no user with that emailcreate the user
                         var newUser = new User();
 
                         // set the user's local credentials
@@ -69,7 +68,7 @@ module.exports = function (passport) {
                         newUser.save(function (err) {
                             if (err)
                                 throw err;
-                            return done(null, newUser);
+                            return done(null, newUser, { success: true} );
                         });
                     }
 
@@ -96,20 +95,21 @@ module.exports = function (passport) {
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
             User.findOne({ 'local.email': email }, function (err, user) {
+
                 // if there are any errors, return the error before anything else
                 if (err)
                     return done(err);
 
                 // if no user is found, return the message
                 if (!user)
-                    return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                    return done(null, false, { success: false, message: 'No user found.'});
 
                 // if the user is found but the password is wrong
                 if (!user.validPassword(password))
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+                    return done(null, false, { success: false, message: 'Oops! Wrong password.'});
 
                 // all is well, return successful user
-                return done(null, user);
+                return done(null, user, { success: true});
             });
 
         }));

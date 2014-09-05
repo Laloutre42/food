@@ -1,24 +1,21 @@
 // Load the list model
-util = require('../util/util');
-passport = require('passport')
+var util = require('../util/util');
+var passport = require('passport')
 
 // expose the routes to our app with module.exports
 module.exports = function (app) {
 
-    app.route('/signup')
+    app.route('/signUp')
 
         // Sign up form
         .post(
         function (req, res, next) {
             passport.authenticate('local-signup', function (err, user, info) {
-                if (err) {
-                    return next(err); // will generate a 500 error
-                }
-                // Generate a JSON response reflecting authentication status
-                if (!user) {
-                    return res.json({ success: false, message: 'signup failed' });
-                }
-                return res.json({ success: true, message: 'signup succeeded' });
+
+                if (err)
+                    return util.handleError(err, res);
+
+                return res.json(info);
             })(req, res, next);
         });
 
@@ -28,16 +25,50 @@ module.exports = function (app) {
         .post(
         function (req, res, next) {
             passport.authenticate('local-login', function (err, user, info) {
-                if (err) {
-                    return next(err); // will generate a 500 error
-                }
-                // Generate a JSON response reflecting authentication status
-                if (!user) {
-                    return res.json({ success: false, message: 'authentication failed' });
-                }
-                return res.json({ success: true, message: 'authentication succeeded' });
+
+                if (err)
+                    return util.handleError(err, res);
+
+                req.logIn(user, function(err) {
+
+                    if (err)
+                        return util.handleError(err, res);
+
+                    return res.json(info);
+                });
+
             })(req, res, next);
         });
+
+    app.route('/logout')
+
+        // Log out
+        .get(
+        function (req, res, next) {
+            req.logout();
+            return res.json({success: true});
+        });
+
+    app.route('/user')
+
+        // User profile
+        .get(
+        isLoggedIn,
+        function (req, res, next) {
+            return res.json(req.user);
+        });
+
+    // route middleware to make sure a user is logged in
+    function isLoggedIn(req, res, next) {
+
+        // if user is authenticated in the session, carry on
+        if (req.isAuthenticated())
+            return next();
+
+        // if they aren't redirect them to the home page
+        res.redirect(403, '/');
+    }
+
 
 };
 

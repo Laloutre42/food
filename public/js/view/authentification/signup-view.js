@@ -6,6 +6,7 @@ define(['backbone', 'resthub', 'hbs!template/authentification/signUp'],
             root: '#container',
             template: signUpTemplate,
             events: {
+                "click #signUpSubmit": "signUp"
             },
 
             /**
@@ -27,6 +28,31 @@ define(['backbone', 'resthub', 'hbs!template/authentification/signUp'],
             close: function() {
                 this.remove();
                 this.unbind();
+            },
+
+            signUp: function (event) {
+                event.preventDefault(); // Don't let this button submit the form
+                $('#messageSignUp').addClass('hide'); // Hide any errors on a new submit
+
+                $.ajax({
+                    url: '/signUp',
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        email: $('#signUpEmail').val(),
+                        password: $('#signUpPassword').val()
+                    },
+                    success: function (data) {
+
+                        if (!data.success) {
+                            $('#messageSignUp').text(data.message).removeClass('hide');
+                        }
+                        else { // If not, send them back to the home page
+                            Backbone.history.navigate("/#", {trigger: true});
+                        }
+                    }
+                });
+
             }
 
         });

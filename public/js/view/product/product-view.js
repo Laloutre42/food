@@ -1,4 +1,4 @@
-define(['backbone', 'resthub', 'hbs!template/product'],
+define(['backbone', 'resthub', 'hbs!template/product/product'],
     function (Backbone, Resthub, productTemplate) {
 
         var ProductView = Resthub.View.extend({

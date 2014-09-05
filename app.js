@@ -22,12 +22,13 @@ app.use(bodyParser());
 app.use(methodOverride());
 
 // required for passport
+require('./config/passport')(passport);
 app.use(session({ secret: 'ilovefoodfoodfoodfood' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
-require('./config/passport')(passport);
+
 
 var env = process.env.NODE_ENV || 'development';
 

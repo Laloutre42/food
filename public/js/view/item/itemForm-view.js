@@ -1,4 +1,4 @@
-define(['backbone', 'resthub', 'hbs!template/item/itemForm', 'model/item', 'view/product-view', 'model/product', 'backbone-validation'],
+define(['backbone', 'resthub', 'hbs!template/item/itemForm', 'model/item', '../product/product-view', 'model/product', 'backbone-validation'],
     function (Backbone, Resthub, itemFormTemplate, Item, ProductView, Product) {
 
         var ItemFormView = Resthub.View.extend({

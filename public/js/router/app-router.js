@@ -3,12 +3,13 @@ define(['backbone',
         'view/home/home-view',
         'view/authentification/login-view',
         'view/authentification/signUp-view',
+        'view/authentification/profile-view',
         'view/item/items-view',
         'view/nav/topNavigation-view',
         'view/list/lists-view',
         'collection/items',
         'collection/lists'],
-    function (Backbone, Bootstrap, HomeView, LoginView, SignUpView, ItemsView, TopNavigationView, ListsView, Items, Lists) {
+    function (Backbone, Bootstrap, HomeView, LoginView, SignUpView, ProfileView, ItemsView, TopNavigationView, ListsView, Items, Lists) {
 
         var AppRouter = Backbone.Router.extend({
 
@@ -20,8 +21,11 @@ define(['backbone',
 
             routes: {
                 '': 'home',
+                'denied': 'denied',
+                'logout': 'logout',
                 'login': 'login',
                 'signUp': 'signUp',
+                'profile': 'profile',
                 'getLists': 'getLists',
                 'getItems/:listId': 'getItems'
             },
@@ -35,12 +39,24 @@ define(['backbone',
                 new HomeView({ vent: this.vent});
             },
 
+            denied: function () {
+                new HomeView({ vent: this.vent, message: "Access denied"});
+            },
+
+            logout: function () {
+                new HomeView({ vent: this.vent, message: "Log out successful"});
+            },
+
             login: function () {
                 new LoginView({ vent: this.vent});
             },
 
             signUp: function () {
                 new SignUpView({ vent: this.vent});
+            },
+
+            profile: function () {
+                new ProfileView({ vent: this.vent});
             },
 
             getLists: function () {
