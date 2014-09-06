@@ -10,19 +10,21 @@
         "express": "4.x",
         "mongoose": "3.8.15",
 
+        "ejs": "latest",
+
         "morgan": "~1.0.0",
         "body-parser": "~1.0.0",
         "cookie-parser": "~1.0.0",
         "method-override": "~1.0.0",
         "errorhandler": "~1.0.0",
         "express-session": "~1.0.0",
-        "connect-flash" : "~0.1.1",
 
         "passport" : "~0.1.17",
         "passport-local" : "~0.1.6",
         "passport-facebook" : "~1.0.2",
         "passport-twitter" : "~1.0.2",
         "passport-google-oauth" : "~0.1.5",
-        "bcrypt-nodejs" : "latest"
+        "bcrypt-nodejs" : "latest",
+        "csurf" : "latest"
     }
 }

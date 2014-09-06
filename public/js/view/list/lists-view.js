@@ -49,7 +49,7 @@ define(['backbone', 'resthub', 'hbs!template/list/lists', 'view/list/list-view',
             },
 
             createList: function () {
-                list = new List();
+                var list = new List();
                 // Silent cause we do not want to render but to be in edit mode
                 this.collection.add(list, {silent: true});
                 listView = new ListView({model: list, vent: this.vent});
@@ -97,10 +97,9 @@ define(['backbone', 'resthub', 'hbs!template/list/lists', 'view/list/list-view',
                 this.collection.sortLists(ns);
             },
 
-            // This code has not changed from the example setup in the previous post.
             updateTable: function () {
 
-                ref = this;
+                var ref = this;
                 this.removeChildrenViews();
 
                 this.childViews = this.collection.map(

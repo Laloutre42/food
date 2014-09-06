@@ -1,6 +1,5 @@
 <div class="page-header text-center">
     <h1><span class="fa fa-anchor"></span> Profile Page</h1>
-    <button id="logoutSubmit" type="submit" class="btn btn-warning btn-lg">Logout</button>
 </div>
 
 <div class="row">
@@ -11,9 +10,9 @@
             <h3><span class="fa fa-user"></span> Local</h3>
 
             <p>
-                <strong>id</strong>{{model._id}}<br>
-                <strong>email</strong>{{model.local.email}}<br>
-                <strong>password</strong>{{model.local.password}}
+                <strong>id</strong>{{model.user._id}}<br>
+                <strong>email</strong>{{model.user.local.email}}<br>
+                <strong>password</strong>{{model.user.local.password}}
             </p>
 
         </div>

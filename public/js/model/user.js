@@ -7,14 +7,10 @@ define(['backbone'],
 
             idAttribute: '_id',
 
-            validation: {
-
-                name: {
-                    required: true
-                },
-                email: {
-                    required: true
-                }
+            defaults: {
+                id: 0,
+                email: '',
+                password: ''
             }
         });
 

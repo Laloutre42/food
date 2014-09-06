@@ -17,6 +17,10 @@ define(['backbone', 'resthub', 'hbs!template/authentification/login'],
 
                 // Events aggregator object
                 this.vent = attributes.vent;
+
+                // Session
+                this.session = attributes.session;
+                
                 this.render();
             },
 
@@ -34,21 +38,25 @@ define(['backbone', 'resthub', 'hbs!template/authentification/login'],
                 event.preventDefault(); // Don't let this button submit the form
                 $('#messageLogin').addClass('hide'); // Hide any errors on a new submit
 
-                $.ajax({
-                    url: '/login',
-                    type: 'POST',
-                    dataType: "json",
-                    data: {
-                        email: $('#loginEmail').val(),
-                        password: $('#loginPassword').val()
-                    },
+                this.session.login({
+                    email: $('#loginEmail').val(),
+                    password: $('#loginPassword').val()
+                }, {
                     success: function (data) {
 
-                        if (!data.success) {
-                            $('#messageLogin').text(data.message).removeClass('hide');
+                        if (!data.info.success) {
+                            $('#messageLogin').text(data.info.message).removeClass('hide');
                         }
                         else {
                             Backbone.history.navigate("/#", {trigger: true});
+                        }
+                    },
+                    error: function (err) {
+                        if (err.info && err.info.message) {
+                            $('#messageLogin').text(err.info.message).removeClass('hide');
+                        }
+                        else{
+                            $('#messageLogin').text(err.error).removeClass('hide');
                         }
                     }
                 });

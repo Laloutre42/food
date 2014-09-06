@@ -15,7 +15,13 @@ module.exports = function (app) {
                 if (err)
                     return util.handleError(err, res);
 
-                return res.json(info);
+                req.logIn(user, function(err) {
+
+                    if (err)
+                        console.log(err);
+
+                    return res.json({info: info, user: user});
+                });
             })(req, res, next);
         });
 
@@ -32,9 +38,9 @@ module.exports = function (app) {
                 req.logIn(user, function(err) {
 
                     if (err)
-                        return util.handleError(err, res);
+                        console.log(err);
 
-                    return res.json(info);
+                    return res.json({info: info, user: user});
                 });
 
             })(req, res, next);
@@ -43,7 +49,7 @@ module.exports = function (app) {
     app.route('/logout')
 
         // Log out
-        .get(
+        .post(
         function (req, res, next) {
             req.logout();
             return res.json({success: true});
@@ -55,7 +61,7 @@ module.exports = function (app) {
         .get(
         isLoggedIn,
         function (req, res, next) {
-            return res.json(req.user);
+            return res.json({user: req.user});
         });
 
     // route middleware to make sure a user is logged in

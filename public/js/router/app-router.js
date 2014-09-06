@@ -13,10 +13,8 @@ define(['backbone',
 
         var AppRouter = Backbone.Router.extend({
 
-            initialize: function () {
-
-                // Start Backbone history
-                Backbone.history.start({ pushState: true, root: "/" });
+            initialize: function (session) {
+                this.session = session;
             },
 
             routes: {
@@ -35,7 +33,7 @@ define(['backbone',
                 // This general object is used for event aggregator between views
                 this.vent = _.extend({}, Backbone.Events);
 
-                new TopNavigationView({ vent: this.vent});
+                new TopNavigationView({ vent: this.vent, session: this.session});
                 new HomeView({ vent: this.vent});
             },
 
@@ -48,11 +46,11 @@ define(['backbone',
             },
 
             login: function () {
-                new LoginView({ vent: this.vent});
+                new LoginView({ vent: this.vent, session: this.session});
             },
 
             signUp: function () {
-                new SignUpView({ vent: this.vent});
+                new SignUpView({ vent: this.vent, session: this.session});
             },
 
             profile: function () {

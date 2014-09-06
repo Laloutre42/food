@@ -6,7 +6,6 @@ define(['backbone', 'resthub', 'hbs!template/authentification/profile', 'model/u
             root: '#container',
             template: profileTemplate,
             events: {
-                "click #logoutSubmit": "logout"
             },
 
             /**
@@ -17,6 +16,9 @@ define(['backbone', 'resthub', 'hbs!template/authentification/profile', 'model/u
 
                 // Events aggregator object
                 this.vent = attributes.vent;
+
+                // Session
+                this.session = attributes.session;
 
                 this.model = new User();
                 this.model.fetch({
@@ -36,21 +38,6 @@ define(['backbone', 'resthub', 'hbs!template/authentification/profile', 'model/u
             close: function() {
                 this.remove();
                 this.unbind();
-            },
-
-            logout: function (event) {
-                event.preventDefault(); // Don't let this button submit the form
-
-                $.ajax({
-                    url: '/logout',
-                    success: function (data) {
-
-                        if (data.success) {
-                            Backbone.history.navigate("/#logout", {trigger: true});
-                        }
-                    }
-                });
-
             }
 
         });
