@@ -1,20 +1,49 @@
-<p>
-    <button id="createList" class="btn btn-primary" type="button" data-toggle="modal" data-target="#newListModal">New
-        List
-    </button>
-</p>
-
 <div id="modalListForm"></div>
 
-<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="tableLists">
-    <thead>
-    <tr>
-        <th column="name" class="sortable">Name</th>
-        <th column="author" class="sortable">Author</th>
-        <th></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Lists
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <p>
+                <button id="createList" class="btn btn-primary" type="button" data-toggle="modal"
+                        data-target="#newListModal">
+                    Add a new list
+                </button>
+            </p>
+            <!-- -->
+        </div>
+        <!-- /.panel-body -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            List of list
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-condensed" id="tableLists">
+                    <thead>
+                    <tr>
+                        <th column="name" class="sortable">Name</th>
+                        <th column="author" class="sortable">Author</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+        <!-- /.panel-body -->
+    </div>
+</div>
+

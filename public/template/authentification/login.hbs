@@ -6,16 +6,15 @@
     <div id="messageLogin" class="alert alert-danger hide" ></div>
 
     <!-- LOGIN FORM -->
-    <form>
+    <form id="loginForm" role="form">
         <div class="form-group">
-            <label>Email</label>
-            <input id="loginEmail" type="text" class="form-control" name="email">
+            <label for="loginEmail">Email address</label>
+            <input type="email" class="form-control" id="loginEmail" placeholder="Enter email" name="email">
         </div>
         <div class="form-group">
-            <label>Password</label>
-            <input id="loginPassword" type="password" class="form-control" name="password">
+            <label for="loginPassword">Password</label>
+            <input type="password" class="form-control" id="loginPassword" placeholder="Password" name="password">
         </div>
-
         <button id="loginSubmit" type="submit" class="btn btn-warning btn-lg">Login</button>
     </form>
 

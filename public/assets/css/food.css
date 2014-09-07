@@ -1,21 +1,22 @@
-#tableProducts tbody{
+#tableProducts tbody {
     cursor: pointer;
 }
 
-.editCategory{
+.editCategory {
     float: right;
     cursor: pointer;
 }
 
 /* Header sortable */
-#tableItems th{
+#tableItems th {
     cursor: pointer;
 }
 
 /*No underline on link*/
-a{
+a {
     cursor: pointer;
 }
+
 a:link {
     text-decoration: none;
 }
@@ -36,4 +37,9 @@ a:active {
 .modal .modal-body {
     max-height: 400px;
     overflow-y: auto;
+}
+
+/* Buttons in nav bar right top */
+.navbar-right > a.btn{
+    margin-left: 6px;
 }

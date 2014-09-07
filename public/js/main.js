@@ -56,6 +56,9 @@ require.config({
         "typeahead-bundle": {
             deps: ["jquery"],
             exports: "Bloodhound"
+        },
+        "handlebars-custom-helpers": {
+            deps: ["handlebars"]
         }
 
     },
@@ -89,6 +92,7 @@ require.config({
         console: 'lib/resthub/console',
 
         // Custom
+        'bootstrapValidator': 'lib/bootstrapValidator/bootstrapValidator',
         'typeahead-bundle': 'lib/custom/typeahead.bundle',
 
         // Custom util and handlebar helpers

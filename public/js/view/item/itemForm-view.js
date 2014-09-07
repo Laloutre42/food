@@ -7,14 +7,9 @@ define(['backbone', 'resthub', 'hbs!template/item/itemForm', 'model/item', '../p
             root: '#modalItemForm',
             events: {
                 'click .cancel': 'cancel',
-                'click .save': 'save',
                 'click #searchProduct': 'searchProduct',
                 'keypress #inputSearchProduct': 'searchProductEnterKey',
-                'click #tableProducts tr': 'productChoosen',
-                'focus #inputItemName': 'hideErrors',
-                'focus #inputItemEnergy_100g': 'hideErrors',
-                'focus #inputItemWeight': 'hideErrors',
-                'focus #searchProduct': 'hideErrors'
+                'click #tableProducts tr': 'productChoosen'
             },
 
             childViews: [],
@@ -27,12 +22,14 @@ define(['backbone', 'resthub', 'hbs!template/item/itemForm', 'model/item', '../p
 
                 this.eventEditMode = attributes.eventEditMode;
 
-                this.listenTo(this.model, 'invalid', this.invalid);
-                //this.listenTo(this.model, 'valid', this.valid);
-                Backbone.Validation.bind(this);
-
                 this.render();
+                this.validateForm();
+
                 this.listenTo(this.collection, 'add', this.add, this);
+
+                $('#searchProductForm').on('submit',function(event){
+                    event.preventDefault() ;
+                });
             },
 
             add: function (product) {
@@ -42,6 +39,7 @@ define(['backbone', 'resthub', 'hbs!template/item/itemForm', 'model/item', '../p
             },
 
             searchProductEnterKey: function (e) {
+
                 // ENTER
                 if (e.keyCode == 13) {
                     this.searchProduct();
@@ -59,11 +57,13 @@ define(['backbone', 'resthub', 'hbs!template/item/itemForm', 'model/item', '../p
             productChoosen: function (e) {
                 $('#inputItemName').val($(e.currentTarget.children[0]).text());
                 $('#inputItemEnergy_100g').val($(e.currentTarget.children[1]).text());
+                $('#newItemForm').bootstrapValidator('revalidateField', 'name');
+                $('#newItemForm').bootstrapValidator('revalidateField', 'energy_100g');
             },
 
             collectionFetchedSuccess: function (collection, response, options) {
                 console.log(collection.count + " items found. Display " + collection.length);
-                if (collection.count > 0){
+                if (collection.count > 0) {
                     $("#tableProducts").removeClass('hidden');
                 }
             },
@@ -77,32 +77,7 @@ define(['backbone', 'resthub', 'hbs!template/item/itemForm', 'model/item', '../p
                 })
             },
 
-            hideErrors: function () {
-                this.$('.form-group').removeClass('has-error');
-                this.$('.form-group .tooltip').hide();
-            },
-
-            invalid: function (model, errors) {
-                this.hideErrors();
-                _.each(errors, function (value, key, list) {
-
-                    control = this.$("input[name='" + key + "']");
-                    form = control.parents(".form-group");
-                    form.addClass("has-error");
-
-                    position = control.data("tooltip-position") || "top";
-                    control.tooltip({
-                        placement: position,
-                        trigger: "manual",
-                        title: value
-                    });
-                    control.tooltip("show");
-
-                }, this);
-            },
-
             cancel: function () {
-                this.hideErrors();
 
                 if (!this.eventEditMode) {
                     this.model.trigger('destroy');
@@ -110,14 +85,11 @@ define(['backbone', 'resthub', 'hbs!template/item/itemForm', 'model/item', '../p
             },
 
             save: function () {
-
                 this.populateModel("#newItemForm");
 
-                if (this.model.isValid()) {
-                    this.model.save();
-                    this.removeBackGroundModel();
-                    return false;
-                }
+                this.model.save();
+                this.removeBackGroundModel();
+                return false;
             },
 
             delete: function () {
@@ -130,6 +102,66 @@ define(['backbone', 'resthub', 'hbs!template/item/itemForm', 'model/item', '../p
                 $('#newItemModal').modal('hide');
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop').remove();
+            },
+
+            validateForm: function () {
+                self = this;
+                this.bootstrapValidator = $('#newItemForm').bootstrapValidator({
+                    excluded: [':disabled'],
+                    feedbackIcons: {
+                        valid: 'glyphicon glyphicon-ok',
+                        invalid: 'glyphicon glyphicon-remove',
+                        validating: 'glyphicon glyphicon-refresh'
+                    },
+                    fields: {
+                        name: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The name is required and cannot be empty'
+                                }
+                            }
+                        },
+
+                        energy_100g: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The energy_100g is required and cannot be empty'
+                                },
+                                integer: {
+                                    message: 'The energy_100g is not valid'
+                                }
+                            }
+                        },
+
+                        weight: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The weight is required and cannot be empty'
+                                },
+                                integer: {
+                                    message: 'The weight is not valid'
+                                }
+                            }
+                        },
+
+                        category: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The category is required and cannot be empty'
+                                },
+                                regexp: {
+                                    regexp: /^(Breakfast|Lunch|Diner|Snack)$/i,
+                                    message: 'The category is not valid'
+                                }
+                            }
+                        }
+                    }
+                }).on('success.form.bv', function (e) {
+                    // Prevent form submission
+                    e.preventDefault();
+
+                    self.save();
+                });
             }
 
         });

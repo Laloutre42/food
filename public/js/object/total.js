@@ -38,7 +38,7 @@ function Total() {
                 that.totalDiner.totalEnergy += energy;
                 that.totalDiner.totalEnergy100g += energy100g;
                 that.nbDiner++;
-                that.nbDiner.averagelEnergy100g = that.nbDiner.totalEnergy100g / that.nbDiner;
+                that.totalDiner.averagelEnergy100g = that.totalDiner.totalEnergy100g / that.nbDiner;
                 break;
 
             case ("Snack"):
@@ -46,7 +46,7 @@ function Total() {
                 that.totalSnack.totalEnergy += energy;
                 that.totalSnack.totalEnergy100g += energy100g;
                 that.nbSnack++;
-                that.nbSnack.averagelEnergy100g = that.nbSnack.totalEnergy100g / that.nbSnack;
+                that.totalSnack.averagelEnergy100g = that.totalSnack.totalEnergy100g / that.nbSnack;
                 break;
         }
 

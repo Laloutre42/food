@@ -11,6 +11,17 @@ define(['backbone'],
                 id: 0,
                 email: '',
                 password: ''
+            },
+
+            validation: {
+
+                email: {
+                    required: true
+                },
+
+                password: {
+                    required: true
+                }
             }
         });
 

@@ -1,6 +1,7 @@
 define(['router/app-router', "model/session"],
     function (AppRouter, SessionModel) {
 
+        /******************************************************************************************************/
         // Tell jQuery to watch for any 401 or 403 errors and handle them appropriately
         $.ajaxSetup({
             statusCode: {
@@ -16,16 +17,28 @@ define(['router/app-router', "model/session"],
             }
         });
 
+        /******************************************************************************************************/
+        /* Watches the HTML5 History API history changed event to avoid the bug with
+         * modal dialogs being catastrophically broken when backspace or the
+         * browser back button is clicked.
+         */
+        window.onpopstate = function () {
+            console.log('onpopstate');
+            $('.modal-backdrop').remove();
+        };
+
+        /******************************************************************************************************/
         // CSRF Token for ajax post request
         var CSRF_HEADER = 'X-CSRF-Token';
-        var setCSRFToken = function(securityToken) {
-            jQuery.ajaxPrefilter(function(options, _, xhr) {
-                if ( !xhr.crossDomain )
+        var setCSRFToken = function (securityToken) {
+            jQuery.ajaxPrefilter(function (options, _, xhr) {
+                if (!xhr.crossDomain)
                     xhr.setRequestHeader(CSRF_HEADER, securityToken);
             });
         };
         setCSRFToken($('meta[name="csrf-token"]').attr('content'));
 
+        /******************************************************************************************************/
         // Global session
         var session = new SessionModel({ });
 
@@ -40,8 +53,12 @@ define(['router/app-router', "model/session"],
 
                 // HTML5 pushState for URLs without hashbangs
                 var hasPushstate = !!(window.history && history.pushState);
-                if (hasPushstate) Backbone.history.start({ pushState: true, root: '/' });
-                else Backbone.history.start();
+                if (hasPushstate) {
+                    Backbone.history.start({ pushState: true, root: '/' });
+                }
+                else {
+                    Backbone.history.start();
+                }
 
             }
         });

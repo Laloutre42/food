@@ -1,64 +1,107 @@
-<p>
-    <button id="createItem" class="btn btn-primary" type="button" data-toggle="modal" data-target="#newItemModal">New item</button>
-</p>
-
 <div id="modalItemForm"></div>
 
-<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="tableTotalItems">
-    <thead>
-    <tr>
-        <th>Category</th>
-        <th>Total weight (g)</th>
-        <th>Total energy (kcal)</th>
-        <th>Average kcal/100g</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Breakfast</td>
-        <td id="breakfastTotalWeight"></td>
-        <td id="breakfastTotalEnergy"></td>
-        <td id="breakfastAverageEnergy100g"></td>
-    </tr>
-    <tr>
-        <td>Lunch</td>
-        <td id="lunchTotalWeight"></td>
-        <td id="lunchTotalEnergy"></td>
-        <td id="lunchAverageEnergy100g"></td>
-    </tr>
-    <tr>
-        <td>Diner</td>
-        <td id="dinerTotalWeight"></td>
-        <td id="dinerTotalEnergy"></td>
-        <td id="dinerAverageEnergy100g"></td>
-    </tr>
-    <tr>
-        <td>Snack</td>
-        <td id="snackTotalWeight"></td>
-        <td id="snackTotalEnergy"></td>
-        <td id="snackAverageEnergy100g"></td>
-    </tr>
-    <tr>
-        <td>All</td>
-        <td id="allTotalWeight"></td>
-        <td id="allTotalEnergy"></td>
-        <td id="allAverageEnergy100g"></td>
-    </tr>
-    </tbody>
-</table>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            List
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <p>
+                <button id="createItem" class="btn btn-primary" type="button" data-toggle="modal"
+                        data-target="#newItemModal">
+                    Add a new item
+                </button>
+            </p>
+            <!-- -->
+        </div>
+        <!-- /.panel-body -->
+    </div>
+</div>
 
-<table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="tableItems">
-    <thead>
-    <tr>
-        <th column="name" class="sortable">Name</th>
-        <th column="category" class="sortable">Category</th>
-        <th column="energy_100g" class="sortable">Kcal/100g</th>
-        <th column="weight" class="sortable">Weight (g)</th>
-        <th column="energy" class="sortable">Energy (kcal)</th>
-        <th column="openFoodFact">OpenFoodFact</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Statistics
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-condensed" id="tableTotalItems">
+                    <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Total weight (g)</th>
+                        <th>Total energy (kcal)</th>
+                        <th>Average kcal/100g</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Breakfast</td>
+                        <td id="breakfastTotalWeight"></td>
+                        <td id="breakfastTotalEnergy"></td>
+                        <td id="breakfastAverageEnergy100g"></td>
+                    </tr>
+                    <tr>
+                        <td>Lunch</td>
+                        <td id="lunchTotalWeight"></td>
+                        <td id="lunchTotalEnergy"></td>
+                        <td id="lunchAverageEnergy100g"></td>
+                    </tr>
+                    <tr>
+                        <td>Diner</td>
+                        <td id="dinerTotalWeight"></td>
+                        <td id="dinerTotalEnergy"></td>
+                        <td id="dinerAverageEnergy100g"></td>
+                    </tr>
+                    <tr>
+                        <td>Snack</td>
+                        <td id="snackTotalWeight"></td>
+                        <td id="snackTotalEnergy"></td>
+                        <td id="snackAverageEnergy100g"></td>
+                    </tr>
+                    <tr>
+                        <td>All</td>
+                        <td id="allTotalWeight"></td>
+                        <td id="allTotalEnergy"></td>
+                        <td id="allAverageEnergy100g"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+        <!-- /.panel-body -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            List of items
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table cellpadding="0" cellspacing="0" border="0" class="table table-condensed" id="tableItems">
+                    <thead>
+                    <tr>
+                        <th column="name" class="sortable">Name</th>
+                        <th column="category" class="sortable">Category</th>
+                        <th column="energy_100g" class="sortable">Kcal/100g</th>
+                        <th column="weight" class="sortable">Weight (g)</th>
+                        <th column="energy" class="sortable">Energy (kcal)</th>
+                        <th column="openFoodFact">OpenFoodFact</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+        <!-- /.panel-body -->
+    </div>
+</div>
