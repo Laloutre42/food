@@ -43,3 +43,7 @@ a:active {
 .navbar-right > a.btn{
     margin-left: 6px;
 }
+/* Buttons in panel heading */
+#descriptionItems, #statisticsItems, #statisticsChartItems{
+    margin-left: 6px;
+}

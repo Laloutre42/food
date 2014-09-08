@@ -1,5 +1,9 @@
-define(['backbone', 'resthub', 'hbs!template/item/items', 'view/item/item-view', 'model/item', 'object/Total'],
-    function (Backbone, Resthub, itemsTemplate, ItemView, Item) {
+define(['backbone', 'resthub', 'hbs!template/item/items', 'view/item/item-view', 'model/item',
+        'view/item/general/description-view',
+        'view/item/general/statisticsChart-view',
+        'view/item/general/statisticsTable-view',
+        'object/Total'],
+    function (Backbone, Resthub, itemsTemplate, ItemView, Item, DescriptionView, StatisticsChartView, StatisticsTableView) {
 
         var ItemsView = Resthub.View.extend({
 
@@ -7,7 +11,10 @@ define(['backbone', 'resthub', 'hbs!template/item/items', 'view/item/item-view',
             template: itemsTemplate,
             events: {
                 'click #createItem': 'createItem',
-                "click #tableItems th.sortable": "headerClick"
+                "click #tableItems th.sortable": "headerClick",
+                "click #descriptionItems": "changeViewItemsClick",
+                "click #statisticsItems": "changeViewItemsClick",
+                "click #statisticsChartItems": "changeViewItemsClick"
             },
 
             childViews: [],
@@ -25,9 +32,7 @@ define(['backbone', 'resthub', 'hbs!template/item/items', 'view/item/item-view',
                 this.vent = attributes.vent;
                 this.listId = attributes.listId;
 
-                _.bindAll(this, "computeTotal");
                 _.bindAll(this, "addItemViewEvent");
-                this.vent.on("computeTotal", this.computeTotal);
                 this.vent.on("addItemViewEvent", this.addItemViewEvent);
 
                 this.render();
@@ -35,13 +40,18 @@ define(['backbone', 'resthub', 'hbs!template/item/items', 'view/item/item-view',
                 this.listenTo(this.collection, "sort", this.updateTable, this);
                 this.collection.fetch({
                     url: this.collection.url + '/listId/' + this.listId,
-                    success: $.proxy(this.initTableAndComputeTotal, this)
+                    success: $.proxy(this.initTable, this)
                 });
             },
 
             render: function () {
                 ItemsView.__super__.render.apply(this);
+
+                this.panelHeadingView = new StatisticsTableView({vent: this.vent});
+                this.panelHeadingView.render();
+
                 this.collection.forEach(this.add, this);
+
                 return this;
             },
 
@@ -49,7 +59,7 @@ define(['backbone', 'resthub', 'hbs!template/item/items', 'view/item/item-view',
                 this.addItemViewEvent(new ItemView({model: item, vent: this.vent}));
             },
 
-            addItemViewEvent: function(itemView){
+            addItemViewEvent: function (itemView) {
                 itemView.render();
                 this.childViews.push(itemView);
             },
@@ -62,8 +72,8 @@ define(['backbone', 'resthub', 'hbs!template/item/items', 'view/item/item-view',
                 itemView.editItem();
             },
 
-            initTableAndComputeTotal: function () {
-                this.computeTotal();
+            initTable: function () {
+                this.vent.trigger("computeTotal");
 
                 // Setup the sort indicators
                 this.$('#tableItems th')
@@ -74,43 +84,6 @@ define(['backbone', 'resthub', 'hbs!template/item/items', 'view/item/item-view',
                     .end()
                     .find('[column="' + this.collection.sortAttribute + '"] span')
                     .removeClass('icon-none').addClass(this.sortUpIcon);
-            },
-
-            computeTotal: function () {
-
-                var total = new Total();
-                category = "";
-
-                $('#tableItems > tbody >  tr').each(function () {
-
-                    element = $(this);
-                    category = element.find('.category').text();
-                    weight = parseFloat(element.find('.weight').text());
-                    energy = parseFloat(element.find('.energy').text());
-                    energy_100g = parseFloat(element.find('.energy_100g').text());
-
-                    total.incrementCategory(weight, energy, energy_100g, category);
-                });
-
-                $('#breakfastTotalWeight').text(parseFloat(total.totalBreakfast.totalWeigh.toFixed(2)));
-                $('#breakfastTotalEnergy').text(parseFloat(total.totalBreakfast.totalEnergy.toFixed(2)));
-                $('#breakfastAverageEnergy100g').text(parseFloat(total.totalBreakfast.averagelEnergy100g.toFixed(2)));
-
-                $('#lunchTotalWeight').text(parseFloat(total.totalLunch.totalWeigh.toFixed(2)));
-                $('#lunchTotalEnergy').text(parseFloat(total.totalLunch.totalEnergy.toFixed(2)));
-                $('#lunchAverageEnergy100g').text(parseFloat(total.totalLunch.averagelEnergy100g.toFixed(2)));
-
-                $('#dinerTotalWeight').text(parseFloat(total.totalDiner.totalWeigh.toFixed(2)));
-                $('#dinerTotalEnergy').text(parseFloat(total.totalDiner.totalEnergy.toFixed(2)));
-                $('#dinerAverageEnergy100g').text(parseFloat(total.totalDiner.averagelEnergy100g.toFixed(2)));
-
-                $('#snackTotalWeight').text(parseFloat(total.totalSnack.totalWeigh.toFixed(2)));
-                $('#snackTotalEnergy').text(parseFloat(total.totalSnack.totalEnergy.toFixed(2)));
-                $('#snackAverageEnergy100g').text(parseFloat(total.totalSnack.averagelEnergy100g.toFixed(2)));
-
-                $('#allTotalWeight').text(parseFloat(total.totalAll.totalWeigh.toFixed(2)));
-                $('#allTotalEnergy').text(parseFloat(total.totalAll.totalEnergy.toFixed(2)));
-                $('#allAverageEnergy100g').text(parseFloat(total.totalAll.averagelEnergy100g.toFixed(2)));
             },
 
             // Now the part that actually changes the sort order
@@ -152,7 +125,7 @@ define(['backbone', 'resthub', 'hbs!template/item/items', 'view/item/item-view',
                         itemView = new ItemView({model: ref.collection.get(obj), vent: ref.vent});
                         itemView.render();
 
-                         return itemView;
+                        return itemView;
                     });
             },
 
@@ -163,7 +136,29 @@ define(['backbone', 'resthub', 'hbs!template/item/items', 'view/item/item-view',
                         childView.close();
                     }
                 })
-            }
+            },
+
+            changeViewItemsClick: function (event) {
+
+                var element = $(event.target);
+                if (element[0].id == 'descriptionItems' && !element.hasClass('active')){
+                    this.panelHeadingView.close();
+                    this.panelHeadingView = new DescriptionView({vent: this.vent});
+                    this.panelHeadingView.render();
+                }
+                if (element[0].id == 'statisticsItems' && !element.hasClass('active')){
+                    this.panelHeadingView.close();
+                    this.panelHeadingView = new StatisticsTableView({vent: this.vent});
+                    this.panelHeadingView.render();
+                    this.vent.trigger("computeTotal");
+                }
+                if (element[0].id == 'statisticsChartItems' && !element.hasClass('active')){
+                    this.panelHeadingView.close();
+                    this.panelHeadingView = new StatisticsChartView({vent: this.vent});
+                    this.panelHeadingView.render();
+                }
+
+            },
 
         });
 
