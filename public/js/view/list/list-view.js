@@ -43,9 +43,11 @@ define(['backbone', 'resthub', 'hbs!template/list/list', 'view/list/listForm-vie
             syncModel: function(){
                 this.vent.trigger("addListViewEvent", this);
             },
+
             destroyModel: function(){
                 this.close();
             },
+
             close: function() {
                 this.remove();
                 this.unbind();

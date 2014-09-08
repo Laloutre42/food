@@ -1,5 +1,5 @@
-define(['backbone', 'resthub', 'hbs!template/item/general/description'],
-    function (Backbone, Resthub, descriptionTemplate) {
+define(['backbone', 'resthub', 'hbs!template/item/general/description', 'model/list'],
+    function (Backbone, Resthub, descriptionTemplate, List) {
 
         var DescriptionView = Resthub.View.extend({
 
@@ -17,6 +17,13 @@ define(['backbone', 'resthub', 'hbs!template/item/general/description'],
 
                 // Events aggregator object
                 this.vent = attributes.vent;
+                this.listId = attributes.listId;
+
+                this.model = new List();
+                this.model.fetch({
+                    url: '/lists/' + this.listId,
+                    success: $.proxy(this.render, this)
+                })
             },
 
             render: function() {

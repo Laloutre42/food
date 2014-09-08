@@ -143,8 +143,8 @@ define(['backbone', 'resthub', 'hbs!template/item/items', 'view/item/item-view',
                 var element = $(event.target);
                 if (element[0].id == 'descriptionItems' && !element.hasClass('active')){
                     this.panelHeadingView.close();
-                    this.panelHeadingView = new DescriptionView({vent: this.vent});
-                    this.panelHeadingView.render();
+                    this.panelHeadingView = new DescriptionView({listId: this.listId, vent: this.vent});
+                    //this.panelHeadingView.render();
                 }
                 if (element[0].id == 'statisticsItems' && !element.hasClass('active')){
                     this.panelHeadingView.close();
@@ -158,7 +158,7 @@ define(['backbone', 'resthub', 'hbs!template/item/items', 'view/item/item-view',
                     this.panelHeadingView.render();
                 }
 
-            },
+            }
 
         });
 
