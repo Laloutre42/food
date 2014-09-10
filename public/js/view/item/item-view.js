@@ -1,5 +1,5 @@
-define(['backbone', 'resthub', 'hbs!template/item/item', 'view/item/itemForm-view', 'collection/products'],
-    function (Backbone, Resthub, itemTemplate, ItemFormView, Products) {
+define(['backbone', 'resthub', 'hbs!template/item/item', 'view/item/itemForm-view'],
+    function (Backbone, Resthub, itemTemplate, ItemFormView) {
 
         var ItemView = Resthub.View.extend({
 
@@ -32,7 +32,7 @@ define(['backbone', 'resthub', 'hbs!template/item/item', 'view/item/itemForm-vie
             },
 
             editItem: function(eventEditMode) {
-                itemFormView = new ItemFormView({model: this.model, collection: new Products(), eventEditMode: eventEditMode});
+                itemFormView = new ItemFormView({model: this.model, eventEditMode: eventEditMode});
             },
 
             removeItem: function() {

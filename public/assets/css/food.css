@@ -33,17 +33,27 @@ a:active {
     text-decoration: none;
 }
 
+/*Modal width*/
+.modal .modal-dialog {
+    width: 80%;
+}
+
 /*Modal scollable*/
 .modal .modal-body {
-    max-height: 400px;
+    max-height: 80%;
     overflow-y: auto;
 }
 
 /* Buttons in nav bar right top */
-.navbar-right > a.btn{
+.navbar-right > a.btn {
     margin-left: 6px;
 }
+
 /* Buttons in panel heading */
-#descriptionItems, #statisticsItems, #statisticsChartItems{
+#descriptionItems, #statisticsItems, #statisticsChartItems, #statisticsChartPieItems {
     margin-left: 6px;
+}
+
+#messageSearchProducts{
+    margin-top: 25px;
 }

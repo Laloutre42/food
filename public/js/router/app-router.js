@@ -10,7 +10,8 @@ define(['backbone',
         'collection/items',
         'collection/lists',
         'bootstrapValidator',
-        'handlebars-custom-helpers'],
+        'handlebars-custom-helpers',
+        'highcharts'],
     function (Backbone, Bootstrap, HomeView, LoginView, SignUpView, ProfileView, ItemsView, TopNavigationView, ListsView, Items, Lists) {
 
         var AppRouter = Backbone.Router.extend({

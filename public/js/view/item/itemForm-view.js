@@ -1,18 +1,17 @@
-define(['backbone', 'resthub', 'hbs!template/item/itemForm', 'model/item', '../product/product-view', 'model/product', 'backbone-validation'],
-    function (Backbone, Resthub, itemFormTemplate, Item, ProductView, Product) {
+define(['backbone', 'resthub', 'hbs!template/item/itemForm', 'model/item',
+        'view/product/productResult-view',
+        'collection/products',
+        'model/product',
+        'backbone-validation'],
+    function (Backbone, Resthub, itemFormTemplate, Item, ProductResultView, Products, Product) {
 
         var ItemFormView = Resthub.View.extend({
 
             template: itemFormTemplate,
             root: '#modalItemForm',
             events: {
-                'click .cancel': 'cancel',
-                'click #searchProduct': 'searchProduct',
-                'keypress #inputSearchProduct': 'searchProductEnterKey',
-                'click #tableProducts tr': 'productChoosen'
+                'click .cancel': 'cancel'
             },
-
-            childViews: [],
 
             /**
              * Initialize
@@ -25,56 +24,12 @@ define(['backbone', 'resthub', 'hbs!template/item/itemForm', 'model/item', '../p
                 this.render();
                 this.validateForm();
 
-                this.listenTo(this.collection, 'add', this.add, this);
+                var productResultView = new ProductResultView({collection: new Products()});
+                productResultView.render();
 
                 $('#searchProductForm').on('submit',function(event){
                     event.preventDefault() ;
                 });
-            },
-
-            add: function (product) {
-                productView = new ProductView({model: product});
-                this.childViews.push(productView);
-                productView.render();
-            },
-
-            searchProductEnterKey: function (e) {
-
-                // ENTER
-                if (e.keyCode == 13) {
-                    this.searchProduct();
-                }
-            },
-
-            searchProduct: function () {
-                $("#tableProducts").addClass('hidden');
-                this.collection.product_name = $('#inputSearchProduct').val();
-                this.removeChildrenViews();
-                this.collection.reset();
-                this.collection.fetch({success: this.collectionFetchedSuccess});
-            },
-
-            productChoosen: function (e) {
-                $('#inputItemName').val($(e.currentTarget.children[0]).text());
-                $('#inputItemEnergy_100g').val($(e.currentTarget.children[1]).text());
-                $('#newItemForm').bootstrapValidator('revalidateField', 'name');
-                $('#newItemForm').bootstrapValidator('revalidateField', 'energy_100g');
-            },
-
-            collectionFetchedSuccess: function (collection, response, options) {
-                console.log(collection.count + " items found. Display " + collection.length);
-                if (collection.count > 0) {
-                    $("#tableProducts").removeClass('hidden');
-                }
-            },
-
-            removeChildrenViews: function () {
-                // handle other unbinding needs, here
-                _.each(this.childViews, function (childView) {
-                    if (childView.close) {
-                        childView.close();
-                    }
-                })
             },
 
             cancel: function () {

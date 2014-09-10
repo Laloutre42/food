@@ -6,37 +6,25 @@ require.config({
             exports: '_'
         },
         'underscore-string': {
-            deps: [
-                'underscore'
-            ]
+            deps: ['underscore']
         },
         'handlebars-orig': {
             exports: 'Handlebars'
         },
         'backbone': {
-            deps: [
-                'underscore',
-                'underscore-string',
-                'jquery'
-            ],
+            deps: ['underscore', 'underscore-string', 'jquery'],
             exports: 'Backbone'
         },
         'backbone-datagrid': {
-            deps: [
-                'backbone'
-            ],
+            deps: ['backbone'],
             exports: 'Backbone.Datagrid'
         },
         'backbone-paginator': {
-            deps: [
-                'backbone'
-            ],
+            deps: ['backbone'],
             exports: 'Backbone.Paginator'
         },
         'bootstrap': {
-            deps: [
-                'jquery'
-            ]
+            deps: ['jquery']
         },
         'backbone-relational': {
             deps: ['backbone']
@@ -59,6 +47,10 @@ require.config({
         },
         "handlebars-custom-helpers": {
             deps: ["handlebars"]
+        },
+        "highcharts": {
+            deps: ['jquery'],
+            exports: "Highcharts"
         }
 
     },
@@ -80,7 +72,7 @@ require.config({
         'handlebars': 'lib/resthub/handlebars-helpers',
         'backbone-queryparams': 'lib/backbone-queryparams',
         'backbone-datagrid': 'lib/back  bone-datagrid',
-        'backbone-paginator': 'lib/backbone-paginator',
+        'backbone-paginator': 'lib/backbone.paginator',
         'backbone-associations': 'lib/backbone-associations',
         'backbone-localstorage': 'lib/backbone-localstorage',
         async: 'lib/async',
@@ -90,6 +82,9 @@ require.config({
         template: '../template',
         json2: 'lib/json2',
         console: 'lib/resthub/console',
+
+        // highcharts
+        'highcharts': 'lib/highcharts/highcharts',
 
         // Custom
         'bootstrapValidator': 'lib/bootstrapValidator/bootstrapValidator',

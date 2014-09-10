@@ -1,6 +1,7 @@
 // Load the list model
 var util = require('../util/util');
 var List = require('../models/listModel');
+var Item = require('../models/itemModel');
 
 // expose the routes to our app with module.exports
 module.exports = function (app) {
@@ -28,7 +29,8 @@ module.exports = function (app) {
 
             var list = new List({
                 name: req.body.name,
-                author: req.body.author
+                author: req.body.author,
+                description: req.body.description
             });
 
             // Save list
@@ -67,7 +69,8 @@ module.exports = function (app) {
 
             var list = new List({
                 name: req.body.name,
-                author: req.body.author
+                author: req.body.author,
+                description: req.body.description
             });
 
             // Update list
@@ -94,15 +97,22 @@ module.exports = function (app) {
 
             console.log('Deleting list by id');
 
-            List.remove({_id: req.params.id}, function (err, list) {
+            Item.remove({listId: req.params.id}, function (err, list) {
 
                 if (err)
                     return util.handleError(err, res);
 
-                res.json({ message: 'Successfully deleted' });
-            });
-        });
+                List.remove({_id: req.params.id}, function (err, list) {
 
+                    if (err)
+                        return util.handleError(err, res);
+
+                    res.json({ message: 'Successfully deleted' });
+                });
+            });
+
+
+        });
 
 };
 

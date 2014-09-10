@@ -71,6 +71,17 @@ define(['backbone', 'resthub', 'hbs!template/list/listForm', 'model/list', 'back
                                     message: 'The name must be less than 250 characters long'
                                 }
                             }
+                        },
+                        description: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The description is required and cannot be empty'
+                                },
+                                stringLength: {
+                                    max: 4096,
+                                    message: 'The description must be less than 4096 characters long'
+                                }
+                            }
                         }
                     }
                 })

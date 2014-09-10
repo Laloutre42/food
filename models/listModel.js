@@ -5,7 +5,8 @@ var mongoose = require('mongoose')
 
 var listSchema = new Schema({
     name: String,
-    author: String
+    author: String,
+    description: String
 });
 
 module.exports = mongoose.model('List', listSchema);

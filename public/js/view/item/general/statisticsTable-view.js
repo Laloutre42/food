@@ -18,8 +18,8 @@ define(['backbone', 'resthub', 'hbs!template/item/general/statisticsTable'],
                 // Events aggregator object
                 this.vent = attributes.vent;
 
-                _.bindAll(this, "computeTotal");
-                this.vent.on("computeTotal", this.computeTotal);
+                _.bindAll(this, "displayTotal");
+                this.vent.on("displayTotal", this.displayTotal);
             },
 
             render: function () {
@@ -32,21 +32,7 @@ define(['backbone', 'resthub', 'hbs!template/item/general/statisticsTable'],
                 this.unbind();
             },
 
-            computeTotal: function () {
-
-                var total = new Total();
-                var category = "";
-
-                $('#tableItems > tbody >  tr').each(function () {
-
-                    element = $(this);
-                    category = element.find('.category').text();
-                    weight = parseFloat(element.find('.weight').text());
-                    energy = parseFloat(element.find('.energy').text());
-                    energy_100g = parseFloat(element.find('.energy_100g').text());
-
-                    total.incrementCategory(weight, energy, energy_100g, category);
-                });
+            displayTotal: function (total) {
 
                 $('#breakfastTotalWeight').text(parseFloat(total.totalBreakfast.totalWeigh.toFixed(2)));
                 $('#breakfastTotalEnergy').text(parseFloat(total.totalBreakfast.totalEnergy.toFixed(2)));

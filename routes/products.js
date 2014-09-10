@@ -39,8 +39,11 @@ module.exports = function (app) {
     app.route('/products/product_name/:product_name')
 
         .get(function (req, res, next) {
+
             console.log('Retrieving products by product_name');
             var regex = new RegExp(req.params.product_name, 'i');
+            var page = req.query.page;
+            var perPage = req.query.per_page;
 
             Product
                 .count({product_name: regex})
@@ -52,20 +55,26 @@ module.exports = function (app) {
                         return util.handleError(err, res);
 
                     console.log(count + ' items found');
+                    var truncate = false;
+                    if (count > 64){
+                        truncate = true;
+                        count = 64;
+                    }
 
                     Product
                         .find({product_name: regex})
                         .where('energy_100g').gte(0)
                         .where('image_small_url').ne("")
                         .sort({'date': -1})
-                        .limit(8)
+                        .skip(perPage * (page - 1))
+                        .limit(perPage)
                         .select(productFields)
                         .exec(function (err, products) {
 
                             if (err)
                                 return util.handleError(err, res);
 
-                            res.json({count: count, products: products});
+                            res.json({count: count, truncate: truncate, products: products});
                         });
                 });
 
@@ -73,10 +82,5 @@ module.exports = function (app) {
         });
 
 };
-
-//app.get('/products/:id', wine.findById);
-//app.post('/products', wine.addWine);
-//app.put('/products/:id', wine.updateWine);
-//app.delete('/products/:id', wine.deleteWine);
 
 

@@ -17,13 +17,8 @@ define(['backbone', 'resthub', 'hbs!template/item/general/description', 'model/l
 
                 // Events aggregator object
                 this.vent = attributes.vent;
-                this.listId = attributes.listId;
-
-                this.model = new List();
-                this.model.fetch({
-                    url: '/lists/' + this.listId,
-                    success: $.proxy(this.render, this)
-                })
+                this.model = attributes.model;
+                this.render();
             },
 
             render: function() {

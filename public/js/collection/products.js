@@ -1,7 +1,7 @@
-define(['backbone', 'model/product'],
-    function(Backbone, Product) {
+define(['backbone', 'backbone-paginator', 'model/product'],
+    function(Backbone, BackbonePaginator, Product) {
 
-    var Products = Backbone.Collection.extend({
+    var Products = Backbone.PageableCollection.extend({
 
         model: Product,
         urlRoot: 'http://localhost:3000/products/product_name/',
@@ -11,8 +11,13 @@ define(['backbone', 'model/product'],
         },
 
         parse: function(resp, xhr) {
-            this.count = resp.count;
+            this.state.totalRecords = resp.count;
+            this.truncate = resp.truncate;
             return resp.products;
+        },
+
+        state: {
+            pageSize: 8
         }
     });
 
