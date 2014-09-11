@@ -41,10 +41,6 @@ require.config({
         'async': {
             exports: 'async'
         },
-        "typeahead-bundle": {
-            deps: ["jquery"],
-            exports: "Bloodhound"
-        },
         "handlebars-custom-helpers": {
             deps: ["handlebars"]
         },
@@ -62,7 +58,6 @@ require.config({
         'underscore-string': 'lib/underscore-string',
         backbone: 'lib/backbone',
         resthub: 'lib/resthub/resthub',
-
         text: 'lib/text',
         i18n: 'lib/i18n',
         'bootstrap': 'lib/bootstrap/bootstrap',
@@ -84,14 +79,15 @@ require.config({
         console: 'lib/resthub/console',
 
         // highcharts
-        'highcharts': 'lib/highcharts/highcharts',
+        highcharts: 'lib/highcharts/highcharts',
 
-        // Custom
-        'bootstrapValidator': 'lib/bootstrapValidator/bootstrapValidator',
-        'typeahead-bundle': 'lib/custom/typeahead.bundle',
+        // bootstrapValidator
+        bootstrapValidator: 'lib/bootstrapValidator/bootstrapValidator',
 
-        // Custom util and handlebar helpers
+        // Custom utilies
         util: 'util/util',
+
+        // Custom handlebar helpers
         'handlebars-custom-helpers': 'util/handlebars-custom-helpers'
     }
 });
