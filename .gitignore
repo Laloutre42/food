@@ -35,4 +35,4 @@ com_crashlytics_export_strings.xml
 ######################## Custom #####################################
 
 #Ignore node_modules
-node_modules/
+node_modules
